@@ -1,0 +1,11 @@
+{
+  "name": "Restaurant Management System",
+  "description": "A professional MERN-style full-stack restaurant administration and POS web application for single restaurant owners, featuring payroll, menu, orders, financial reporting, of PDF invoices, and Gemini AI image generation and expense analysis.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
