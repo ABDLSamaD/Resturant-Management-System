@@ -337,12 +337,12 @@ export default function Products() {
                   />
                 </div>
 
-                <div>
+                 <div>
                   <label className="block text-[10px] font-extrabold text-[#71717A] uppercase">Custom Description</label>
                   <textarea 
                     value={prodForm.description}
                     onChange={e => setProdForm({ ...prodForm, description: e.target.value })}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     rows={2}
                     placeholder="Spiced gravy clay oven dish..."
                   />
@@ -354,23 +354,23 @@ export default function Products() {
                     type="text"
                     value={prodForm.imageUrl}
                     onChange={e => setProdForm({ ...prodForm, imageUrl: e.target.value })}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     placeholder="Dynamic AI texture or image path"
                   />
                 </div>
 
                 <div className="flex gap-2 pt-4 border-t border-[#E4E4E7]">
                   <button type="button" onClick={() => setShowProductForm(false)} className="flex-1 rounded border border-[#E4E4E7] py-2.5 text-xs font-bold text-[#71717A] hover:bg-[#F4F4F5] transition-colors">Close</button>
-                  <button type="submit" className="flex-1 rounded bg-[#18181B] py-2.5 text-xs font-bold text-white hover:opacity-90">Save Listing</button>
+                  <button type="submit" className="flex-1 rounded bg-[#0f223a] py-2.5 text-xs font-bold text-white hover:opacity-90">Save Listing</button>
                 </div>
               </form>
             </div>
 
-            {/* Right Column: Dynamic AIS Gemini Image generator Workspace */}
+             {/* Right Column: Dynamic AIS Gemini Image generator Workspace */}
             <div className="border-l border-[#E4E4E7] pl-0 md:pl-6 flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#18181B] mb-2">
-                  <Sparkles className="h-4 w-4 text-[#18181B]" />
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#0f223a] mb-2">
+                  <Sparkles className="h-4 w-4 text-[#0f223a]" />
                   <span>AIS AI Creative Workspace</span>
                 </div>
                 <p className="font-sans text-[11px] leading-relaxed text-[#71717A] mb-4">
@@ -391,7 +391,7 @@ export default function Products() {
                   <div className="rounded border border-dashed border-[#E4E4E7] h-32 flex flex-col items-center justify-center text-[#A1A1AA] text-xs mb-4">
                     {isAiGenerating ? (
                       <div className="text-center font-sans">
-                        <Loader className="h-6 w-6 animate-spin text-[#18181B] mx-auto mb-2" />
+                        <Loader className="h-6 w-6 animate-spin text-[#0f223a] mx-auto mb-2" />
                         <span className="text-[10px] font-semibold text-[#71717A]">Gemini Image Preview compiling...</span>
                       </div>
                     ) : (
@@ -410,7 +410,7 @@ export default function Products() {
                       placeholder="e.g. Delicious hot bowl of Dal Makhani lentils with a pat of butter, top down culinary lighting portrait style"
                       value={aiPrompt}
                       onChange={e => setAiPrompt(e.target.value)}
-                      className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                      className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                       rows={2}
                     />
                   </div>
@@ -423,7 +423,7 @@ export default function Products() {
                           type="button"
                           key={r}
                           onClick={() => setAiRatio(r as any)}
-                          className={`rounded px-2.5 py-1 font-mono text-[9px] font-bold border ${aiRatio === r ? 'bg-[#18181B] text-white border-[#18181B]' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
+                          className={`rounded px-2.5 py-1 font-mono text-[9px] font-bold border ${aiRatio === r ? 'bg-[#0f223a] text-white border-[#0f223a]' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
                         >
                           {r} Ratio
                         </button>
@@ -438,7 +438,7 @@ export default function Products() {
                 id="btn-ai-generate"
                 disabled={isAiGenerating}
                 onClick={handleGenerateAiImage}
-                className="mt-4 w-full inline-flex items-center justify-center gap-1.5 rounded border border-[#E4E4E7] bg-white px-3 py-2.5 font-sans text-xs font-bold text-[#18181B] hover:bg-[#F4F4F5] disabled:opacity-55 transition-colors"
+                className="mt-4 w-full inline-flex items-center justify-center gap-1.5 rounded border border-[#E4E4E7] bg-white px-3 py-2.5 font-sans text-xs font-bold text-[#0f223a] hover:bg-[#F4F4F5] disabled:opacity-55 transition-colors"
               >
                 <Sparkles className="h-4 w-4" />
                 Render Creative Dish Graphic
@@ -452,7 +452,7 @@ export default function Products() {
       <div className="flex flex-wrap gap-1.5">
         <button 
           onClick={() => setSelCategory('')}
-          className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${!selCategory ? 'bg-[#18181B] text-white' : 'bg-white text-[#71717A] border border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
+          className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${!selCategory ? 'bg-[#0f223a] text-white' : 'bg-white text-[#71717A] border border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
         >
           All
         </button>
@@ -460,7 +460,7 @@ export default function Products() {
           <button
             key={c.id}
             onClick={() => setSelCategory(c.name)}
-            className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${selCategory === c.name ? 'bg-[#18181B] text-white' : 'bg-white text-[#71717A] border border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
+            className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${selCategory === c.name ? 'bg-[#0f223a] text-white' : 'bg-white text-[#71717A] border border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
           >
             {c.name}
           </button>
@@ -477,7 +477,7 @@ export default function Products() {
               placeholder="Search dishes by name or descriptions..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full rounded border border-[#E4E4E7] bg-[#F4F4F5] pl-10 pr-3 py-2 text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-black text-[#18181B]"
+              className="w-full rounded border border-[#E4E4E7] bg-[#F4F4F5] pl-10 pr-3 py-2 text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-black text-[#0f223a]"
             />
           </div>
 
@@ -485,7 +485,7 @@ export default function Products() {
             <select 
               value={activeOnly}
               onChange={e => setActiveOnly(e.target.value)}
-              className="w-full rounded border border-[#E4E4E7] bg-white px-3 py-2 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#18181B]"
+              className="w-full rounded border border-[#E4E4E7] bg-white px-3 py-2 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#0f223a]"
             >
               <option value="true">Active List Only</option>
               <option value="">All Menu items</option>
@@ -497,7 +497,7 @@ export default function Products() {
       {/* Products Grid list */}
       {loading ? (
         <div className="flex h-32 items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#18181B] border-t-transparent" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#0f223a] border-t-transparent" />
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -519,10 +519,10 @@ export default function Products() {
                 <div className="p-5 space-y-2">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-sans text-sm font-bold text-[#18181B]">{p.name}</h3>
+                      <h3 className="font-sans text-sm font-bold text-[#0f223a]">{p.name}</h3>
                       <p className="font-sans text-[10px] text-[#71717A] font-bold tracking-tight uppercase">{p.category}</p>
                     </div>
-                    <span className="font-sans text-sm font-extrabold text-[#18181B]">Rs. {p.price.toFixed(2)}</span>
+                    <span className="font-sans text-sm font-extrabold text-[#0f223a]">Rs. {p.price.toFixed(2)}</span>
                   </div>
                   <p className="font-sans text-xs text-[#71717A] leading-relaxed">{p.description || 'Traditional spiced hot kitchen course.'}</p>
                 </div>
@@ -537,7 +537,7 @@ export default function Products() {
                 <div className="flex gap-1.5">
                   <button 
                     onClick={() => handleOpenEdit(p)}
-                    className="p-1.5 rounded border border-[#E4E4E7] bg-white text-[#71717A] hover:text-[#18181B] hover:bg-[#F4F4F5] transition-colors"
+                    className="p-1.5 rounded border border-[#E4E4E7] bg-white text-[#71717A] hover:text-[#0f223a] hover:bg-[#F4F4F5] transition-colors"
                   >
                     <Edit className="h-3.5 w-3.5" />
                   </button>

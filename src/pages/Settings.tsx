@@ -99,7 +99,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
   if (loading) {
     return (
       <div className="flex flex-1 items-center justify-center p-12">
-        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#18181B] border-t-transparent" />
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#0f223a] border-t-transparent" />
       </div>
     );
   }
@@ -107,14 +107,14 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
   return (
     <div className="space-y-6 p-6 md:p-8 bg-[#F4F4F5] min-h-screen">
       {statusMsg.text && (
-        <div id="toast-message-box" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#18181B] bg-white shadow-sm flex items-center gap-2`}>
+        <div id="toast-message-box" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#0f223a] bg-white shadow-sm flex items-center gap-2`}>
           <span className={`w-2 h-2 rounded-full ${statusMsg.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
           {statusMsg.text}
         </div>
       )}
 
       <div className="pb-4 border-b border-[#E4E4E7]">
-        <h1 id="settings-title" className="font-sans text-xl font-bold tracking-tight text-[#18181B]">General Options & Operations Reports</h1>
+        <h1 id="settings-title" className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">General Options & Operations Reports</h1>
         <p className="font-sans text-xs text-[#71717A]">Configure receipt typography templates, store phone numbers, addresses, and print daily reports.</p>
       </div>
 
@@ -122,7 +122,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
         {/* Settings Form Column */}
         <div className="md:col-span-2 space-y-6">
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-6">
-            <h3 className="font-sans text-xs font-bold text-[#18181B] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
+            <h3 className="font-sans text-xs font-bold text-[#0f223a] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
               <Store className="h-4 w-4 text-[#71717A]" />
               Store Visual Configuration
             </h3>
@@ -136,7 +136,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                     required
                     value={form.restaurantName}
                     onChange={e => setForm({...form, restaurantName: e.target.value})}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     placeholder="e.g. Shalimar Curry Point"
                   />
                 </div>
@@ -149,7 +149,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                     maxLength={3}
                     value={form.logoText}
                     onChange={e => setForm({...form, logoText: e.target.value})}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     placeholder="e.g. S"
                   />
                 </div>
@@ -163,7 +163,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                     required
                     value={form.phone}
                     onChange={e => setForm({...form, phone: e.target.value})}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     placeholder="e.g. 555-1900"
                   />
                 </div>
@@ -175,7 +175,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                     required
                     value={form.address}
                     onChange={e => setForm({...form, address: e.target.value})}
-                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                    className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                     placeholder="e.g. 450 Gourmet Av, Food district"
                   />
                 </div>
@@ -187,7 +187,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                   required
                   value={form.invoiceFooterText}
                   onChange={e => setForm({...form, invoiceFooterText: e.target.value})}
-                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
+                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#0f223a]"
                   rows={3}
                   placeholder="e.g. Thank you for choosing Shalimar Curry Point! We structure quality taste."
                 />
@@ -196,7 +196,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
               <button 
                 type="submit"
                 disabled={saving}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded bg-[#18181B] text-white font-sans text-xs font-bold py-2.5 disabled:opacity-55 hover:opacity-90"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded bg-[#0f223a] text-white font-sans text-xs font-bold py-2.5 disabled:opacity-55 hover:opacity-90"
               >
                 <Save className="h-4 w-4" />
                 {saving ? 'Updating system...' : 'Save System Configuration'}
@@ -209,7 +209,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
         <div className="space-y-6">
           <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 flex flex-col justify-between h-full">
             <div>
-              <h3 className="font-sans text-xs font-bold text-[#18181B] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
+              <h3 className="font-sans text-xs font-bold text-[#0f223a] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
                 <Printer className="h-4 w-4 text-[#71717A]" />
                 Store Performance Exports
               </h3>
@@ -224,7 +224,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                     type="date" 
                     value={reportDate}
                     onChange={e => setReportDate(e.target.value)}
-                    className="w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#18181B] bg-white"
+                    className="w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#0f223a] bg-white"
                   />
                 </div>
               </div>
@@ -232,7 +232,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
 
             <button 
               onClick={handleDownloadDailyReport}
-              className="mt-6 w-full inline-flex items-center justify-center gap-1.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] text-[#18181B] font-sans text-xs font-bold py-2.5 transition-colors"
+              className="mt-6 w-full inline-flex items-center justify-center gap-1.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] text-[#0f223a] font-sans text-xs font-bold py-2.5 transition-colors"
             >
               <FileDown className="h-4 w-4" />
               Serve Daily Performance PDF

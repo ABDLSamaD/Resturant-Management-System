@@ -205,7 +205,7 @@ export default function Expenses() {
   return (
     <div className="space-y-6 p-6 md:p-8 bg-[#F4F4F5] min-h-screen">
       {statusMsg.text && (
-        <div id="toast-wrapper" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#18181B] bg-white shadow-sm flex items-center gap-2`}>
+        <div id="toast-wrapper" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#0f223a] bg-white shadow-sm flex items-center gap-2`}>
           <span className={`w-2 h-2 rounded-full ${statusMsg.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
           {statusMsg.text}
         </div>
@@ -214,14 +214,14 @@ export default function Expenses() {
       {/* Page Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#E4E4E7]">
         <div>
-          <h1 id="expenses-title" className="font-sans text-xl font-bold tracking-tight text-[#18181B]">Store Direct Expenditures</h1>
+          <h1 id="expenses-title" className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">Store Direct Expenditures</h1>
           <p className="font-sans text-xs text-[#71717A]">Log utility contracts, food raw material bills, and scan receipts using Gemini Pro OCR.</p>
         </div>
 
         <button 
           id="btn-expense-add-open"
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-1.5 rounded bg-[#18181B] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90 self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 rounded bg-[#0f223a] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90 self-start sm:self-auto"
         >
           <Plus className="h-4 w-4" />
           Log Outflow / Invoice Scan
@@ -234,7 +234,7 @@ export default function Expenses() {
           <div className="w-full max-w-3xl rounded-xl bg-white p-6 shadow-lg border border-[#E4E4E7] grid gap-6 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
             {/* Left Column: Form Details fields */}
             <div>
-              <h3 className="font-sans text-sm font-bold text-[#18181B] pb-3 border-b border-[#E4E4E7] mb-4">
+              <h3 className="font-sans text-sm font-bold text-[#0f223a] pb-3 border-b border-[#E4E4E7] mb-4">
                 Log New Expense
               </h3>
 
@@ -310,7 +310,7 @@ export default function Expenses() {
 
                 <div className="flex gap-2 pt-4 border-t border-[#E4E4E7]">
                   <button type="button" onClick={() => setShowForm(false)} className="flex-1 rounded border border-[#E4E4E7] py-2 text-xs font-bold text-[#71717A] hover:bg-[#F4F4F5]">Close</button>
-                  <button type="submit" className="flex-1 rounded bg-[#18181B] py-2 text-xs font-bold text-white hover:opacity-90">Add Invoice Row</button>
+                  <button type="submit" className="flex-1 rounded bg-[#0f223a] py-2 text-xs font-bold text-white hover:opacity-90">Add Invoice Row</button>
                 </div>
               </form>
             </div>
@@ -318,7 +318,7 @@ export default function Expenses() {
             {/* Right Column: Dynamic Gemini Pro OCR workspace selection */}
             <div className="border-l border-[#E4E4E7] pl-0 md:pl-6 flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#18181B] mb-2">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#0f223a] mb-2">
                   <Sparkles className="h-4 w-4 text-emerald-600 fill-emerald-100" />
                   <span>Gemini Pro OCR Decrypter</span>
                 </div>
@@ -331,7 +331,7 @@ export default function Expenses() {
                     <img src={receiptBase64} className="h-full w-full object-contain" referrerPolicy="no-referrer" />
                     <button 
                       onClick={() => { setReceiptBase64(''); setSelectedFileName(''); }}
-                      className="absolute top-2 right-2 rounded-full bg-[#18181B]/80 p-1 text-white hover:bg-[#18181B]"
+                      className="absolute top-2 right-2 rounded-full bg-[#0f223a]/80 p-1 text-white hover:bg-[#0f223a]"
                     >
                       <X className="h-3.5 w-3.5" />
                     </button>
@@ -360,7 +360,7 @@ export default function Expenses() {
                 id="btn-trigger-ocr"
                 disabled={isOcrProcessing || !receiptBase64}
                 onClick={handleTriggerOcr}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded border border-transparent bg-[#18181B] px-3 py-2.5 font-sans text-xs font-bold text-white hover:opacity-90 disabled:opacity-40"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded border border-transparent bg-[#0f223a] px-3 py-2.5 font-sans text-xs font-bold text-white hover:opacity-90 disabled:opacity-40"
               >
                 {isOcrProcessing ? (
                   <>
@@ -383,7 +383,7 @@ export default function Expenses() {
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
           <span className="block text-[11px] font-extrabold uppercase tracking-wide text-[#71717A]">Ledger Cumulative Total Outflows</span>
-          <h3 className="font-sans text-2xl font-bold text-[#18181B] mt-2">
+          <h3 className="font-sans text-2xl font-bold text-[#0f223a] mt-2">
             Rs. {totalSpent.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </h3>
           <p className="text-[10px] text-[#A1A1AA] mt-1">Across all categories and dates specified</p>
@@ -397,8 +397,8 @@ export default function Expenses() {
               const percent = totalSpent > 0 ? (catSpent / totalSpent) * 100 : 0;
               return (
                 <div key={category} className="rounded border border-[#E4E4E7] bg-[#F4F4F5] px-3 py-2 text-xs">
-                  <p className="font-bold text-[#18181B]">{category}</p>
-                  <p className="font-bold text-[#18181B] mt-0.5">Rs. {catSpent.toFixed(2)} <span className="text-[10px] text-[#71717A] font-normal">({percent.toFixed(0)}%)</span></p>
+                  <p className="font-bold text-[#0f223a]">{category}</p>
+                  <p className="font-bold text-[#0f223a] mt-0.5">Rs. {catSpent.toFixed(2)} <span className="text-[10px] text-[#71717A] font-normal">({percent.toFixed(0)}%)</span></p>
                 </div>
               );
             })}
@@ -463,12 +463,12 @@ export default function Expenses() {
 
       {loading ? (
         <div className="flex h-32 items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#18181B] border-t-transparent" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#0f223a] border-t-transparent" />
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border border-[#E4E4E7] bg-white">
           <table className="w-full border-collapse text-left text-xs text-[#71717A]">
-            <thead className="bg-[#F4F4F5] font-bold text-[#18181B] border-b border-[#E4E4E7]">
+            <thead className="bg-[#F4F4F5] font-bold text-[#0f223a] border-b border-[#E4E4E7]">
               <tr>
                 <th className="px-6 py-3">Expense Details</th>
                 <th className="px-6 py-3">Category</th>
@@ -481,11 +481,11 @@ export default function Expenses() {
             <tbody className="divide-y divide-[#E4E4E7] font-sans">
               {expenses.map(exp => (
                 <tr key={exp.id} className="hover:bg-[#F9F9F9] transition-colors">
-                  <td className="px-6 py-4 font-bold text-[#18181B]">{exp.title}</td>
-                  <td className="px-6 py-4 font-semibold text-[#18181B]">{exp.category}</td>
+                  <td className="px-6 py-4 font-bold text-[#0f223a]">{exp.title}</td>
+                  <td className="px-6 py-4 font-semibold text-[#0f223a]">{exp.category}</td>
                   <td className="px-6 py-4 font-medium text-[#71717A]">{exp.date}</td>
                   <td className="px-6 py-4 text-[#A1A1AA] italic max-w-xs truncate" title={exp.notes}>{exp.notes || 'No description added'}</td>
-                  <td className="px-6 py-4 font-extrabold text-[#18181B]">Rs. {exp.amount.toFixed(2)}</td>
+                  <td className="px-6 py-4 font-extrabold text-[#0f223a]">Rs. {exp.amount.toFixed(2)}</td>
                   <td className="px-6 py-4 text-right">
                     <button 
                       onClick={() => handleDeleteExpense(exp.id)}

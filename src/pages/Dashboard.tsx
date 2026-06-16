@@ -91,10 +91,10 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
       {/* Page Header */}
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between pb-4 border-b border-[#E4E4E7]">
         <div>
-          <h1 id="dashboard-title" className="font-sans text-xl font-bold tracking-tight text-[#18181B]">Executive Performance Dashboard</h1>
+          <h1 id="dashboard-title" className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">Executive Performance Dashboard</h1>
           <p className="font-sans text-xs text-[#71717A]">Real-time indicators & financial statements for single owner operations.</p>
         </div>
-        <div className="flex items-center gap-2 rounded bg-white px-3 py-1.5 border border-[#E4E4E7] text-[#18181B] font-sans text-xs font-semibold">
+        <div className="flex items-center gap-2 rounded bg-white px-3 py-1.5 border border-[#E4E4E7] text-[#0f223a] font-sans text-xs font-semibold">
           <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
           System Active
         </div>
@@ -106,12 +106,12 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="font-sans text-2xs font-bold uppercase tracking-wider text-[#71717A]">Daily Revenue</span>
-            <div className="rounded bg-[#F4F4F5] p-2 text-[#18181B]">
+            <div className="rounded bg-[#F4F4F5] p-2 text-[#0f223a]">
               <TrendingUp className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-4">
-            <h3 className="font-sans text-xl font-bold tracking-tight text-[#18181B]">
+            <h3 className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">
               Rs. {dSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h3>
             <p className="mt-1 font-sans text-[10px] text-[#A1A1AA]">Completed orders today</p>
@@ -122,12 +122,12 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="font-sans text-2xs font-bold uppercase tracking-wider text-[#71717A]">Monthly Revenue</span>
-            <div className="rounded bg-[#F4F4F5] p-2 text-[#18181B]">
+            <div className="rounded bg-[#F4F4F5] p-2 text-[#0f223a]">
               <TrendingUp className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-4">
-            <h3 className="font-sans text-xl font-bold tracking-tight text-[#18181B]">
+            <h3 className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">
               Rs. {mSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h3>
             <p className="mt-1 font-sans text-[10px] text-[#71717A] font-semibold">{dailyStats?.totalOrders || 0} invoices cleared</p>
@@ -138,12 +138,12 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="font-sans text-2xs font-bold uppercase tracking-wider text-[#71717A]">Estimated Net Profit</span>
-            <div className="rounded bg-[#F4F4F5] p-2 text-[#18181B]">
+            <div className="rounded bg-[#F4F4F5] p-2 text-[#0f223a]">
               <Coins className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-4">
-            <h3 className="font-sans text-xl font-bold tracking-tight text-[#18181B]">
+            <h3 className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">
               Rs. {mProfit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </h3>
             <p className="mt-1 font-sans text-[10px] text-[#71717A] font-medium">Revenue - Payroll - Direct Expenses</p>
@@ -154,12 +154,12 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
           <div className="flex items-center justify-between">
             <span className="font-sans text-2xs font-bold uppercase tracking-wider text-[#71717A]">Active Payroll</span>
-            <div className="rounded bg-[#F4F4F5] p-2 text-[#18181B]">
+            <div className="rounded bg-[#F4F4F5] p-2 text-[#0f223a]">
               <Users className="h-4 w-4" />
             </div>
           </div>
           <div className="mt-4">
-            <h3 className="font-sans text-xl font-bold tracking-tight text-[#18181B]">{emps} Employees</h3>
+            <h3 className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">{emps} Employees</h3>
             <p className="mt-1 font-sans text-[10px] text-[#A1A1AA]">Staff currently on roster</p>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
       <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
-            <h3 className="font-sans text-sm font-bold text-[#18181B]">Sales Performance Trend (Last 7 Days)</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a]">Sales Performance Trend (Last 7 Days)</h3>
             <p className="font-sans text-xs text-[#71717A]">Daily customer invoice checkouts aggregated in PKR.</p>
           </div>
           <div className="rounded bg-slate-900 px-2.5 py-1 text-white font-sans text-2xs font-extrabold tracking-wider uppercase border border-transparent self-start sm:self-center">
@@ -184,8 +184,8 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
             >
               <defs>
                 <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#18181B" stopOpacity={0.2}/>
-                  <stop offset="95%" stopColor="#18181B" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#0f223a" stopOpacity={0.2}/>
+                  <stop offset="95%" stopColor="#0f223a" stopOpacity={0}/>
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E4E4E7" strokeOpacity={0.5} />
@@ -215,12 +215,12 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                 }}
                 formatter={(value: any) => [`Rs. ${Number(value).toFixed(2)}`, 'Revenue']}
-                labelStyle={{ fontWeight: 'bold', color: '#18181B' }}
+                labelStyle={{ fontWeight: 'bold', color: '#0f223a' }}
               />
               <Area 
                 type="monotone" 
                 dataKey="totalAmount" 
-                stroke="#18181B" 
+                stroke="#0f223a" 
                 strokeWidth={2}
                 fillOpacity={1} 
                 fill="url(#colorTotal)" 
@@ -239,28 +239,28 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
               <Coins className="h-3.5 w-3.5 text-[#71717A]" />
               <span className="font-sans text-[11px] font-medium text-[#71717A]">Salaries Paid</span>
             </div>
-            <p className="font-sans text-sm font-bold text-[#18181B]">Rs. {mSalPaid.toFixed(2)}</p>
+            <p className="font-sans text-sm font-bold text-[#0f223a]">Rs. {mSalPaid.toFixed(2)}</p>
           </div>
           <div className="rounded border border-[#E4E4E7] bg-[#F9F9F9] p-3.5">
             <div className="flex items-center gap-2 mb-1">
               <FileMinus className="h-3.5 w-3.5 text-[#71717A]" />
               <span className="font-sans text-[11px] font-medium text-[#71717A]">Pre-paid Salary Advances</span>
             </div>
-            <p className="font-sans text-sm font-bold text-[#18181B]">Rs. {mAdvs.toFixed(2)}</p>
+            <p className="font-sans text-sm font-bold text-[#0f223a]">Rs. {mAdvs.toFixed(2)}</p>
           </div>
           <div className="rounded border border-[#E4E4E7] bg-[#F9F9F9] p-3.5">
             <div className="flex items-center gap-2 mb-1">
               <FileMinus className="h-3.5 w-3.5 text-[#71717A]" />
               <span className="font-sans text-[11px] font-medium text-[#71717A]">Store Direct Expenses</span>
             </div>
-            <p className="font-sans text-sm font-bold text-[#18181B]">Rs. {mExpenses.toFixed(2)}</p>
+            <p className="font-sans text-sm font-bold text-[#0f223a]">Rs. {mExpenses.toFixed(2)}</p>
           </div>
         </div>
       </div>
 
       {/* Quick Action Buttons Bento Block */}
       <div className="rounded-xl border border-[#E4E4E7] bg-white p-6">
-        <h3 className="font-sans text-sm font-bold text-[#18181B]">Quick Operations Launcher</h3>
+        <h3 className="font-sans text-sm font-bold text-[#0f223a]">Quick Operations Launcher</h3>
         <p className="font-sans text-xs text-[#71717A] mt-1">One-click launchers for typical daily operations.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-4">
           <button 
@@ -268,11 +268,11 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
             onClick={() => onNavigate('orders')}
             className="flex flex-col items-start gap-2 rounded border border-[#E4E4E7] bg-white p-4 transition-colors hover:bg-[#F4F4F5] group text-left w-full"
           >
-            <div className="rounded bg-[#18181B] text-white p-1.5">
+            <div className="rounded bg-[#0f223a] text-white p-1.5">
               <Plus className="h-3.5 w-3.5" />
             </div>
             <div className="mt-1">
-              <p className="font-sans text-xs font-bold text-[#18181B]">New Table Order</p>
+              <p className="font-sans text-xs font-bold text-[#0f223a]">New Table Order</p>
               <p className="font-sans text-[10px] text-[#71717A] mt-0.5">Check out clients manually</p>
             </div>
           </button>
@@ -282,11 +282,11 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
             onClick={() => onNavigate('expenses')}
             className="flex flex-col items-start gap-2 rounded border border-[#E4E4E7] bg-white p-4 transition-colors hover:bg-[#F4F4F5] group text-left w-full"
           >
-            <div className="rounded bg-[#18181B] text-white p-1.5">
+            <div className="rounded bg-[#0f223a] text-white p-1.5">
               <FileMinus className="h-3.5 w-3.5" />
             </div>
             <div className="mt-1">
-              <p className="font-sans text-xs font-bold text-[#18181B]">AIS OCR Expenses</p>
+              <p className="font-sans text-xs font-bold text-[#0f223a]">AIS OCR Expenses</p>
               <p className="font-sans text-[10px] text-[#71717A] mt-0.5">Drop receipt to auto-parse</p>
             </div>
           </button>
@@ -296,11 +296,11 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
             onClick={() => onNavigate('products')}
             className="flex flex-col items-start gap-2 rounded border border-[#E4E4E7] bg-white p-4 transition-colors hover:bg-[#F4F4F5] group text-left w-full"
           >
-            <div className="rounded bg-[#18181B] text-white p-1.5">
+            <div className="rounded bg-[#0f223a] text-white p-1.5">
               <Utensils className="h-3.5 w-3.5" />
             </div>
             <div className="mt-1">
-              <p className="font-sans text-xs font-bold text-[#18181B]">Menu Promotion Image</p>
+              <p className="font-sans text-xs font-bold text-[#0f223a]">Menu Promotion Image</p>
               <p className="font-sans text-[10px] text-[#71717A] mt-0.5">Create menu promo posters</p>
             </div>
           </button>
@@ -310,11 +310,11 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
             onClick={() => onNavigate('payroll')}
             className="flex flex-col items-start gap-2 rounded border border-[#E4E4E7] bg-white p-4 transition-colors hover:bg-[#F4F4F5] group text-left w-full"
           >
-            <div className="rounded bg-[#18181B] text-white p-1.5">
+            <div className="rounded bg-[#0f223a] text-white p-1.5">
               <Coins className="h-3.5 w-3.5" />
             </div>
             <div className="mt-1">
-              <p className="font-sans text-xs font-bold text-[#18181B]">Process Salaries</p>
+              <p className="font-sans text-xs font-bold text-[#0f223a]">Process Salaries</p>
               <p className="font-sans text-[10px] text-[#71717A] mt-0.5">Hand out cash advances</p>
             </div>
           </button>
@@ -326,23 +326,23 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         {/* Top Products */}
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-6">
           <div className="flex items-center justify-between pb-3 border-b border-[#E4E4E7]">
-            <h3 className="font-sans text-sm font-bold text-[#18181B]">Top Selling Menu Products</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a]">Top Selling Menu Products</h3>
             <span className="font-sans text-[10px] text-[#71717A] font-medium">Performance metric</span>
           </div>
           <div className="mt-4 space-y-4">
             {productBreakdown.slice(0, 5).map((item: any, idx: number) => (
               <div key={idx} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-7 w-7 items-center justify-center rounded bg-[#F4F4F5] text-[#18181B]">
+                  <div className="flex h-7 w-7 items-center justify-center rounded bg-[#F4F4F5] text-[#0f223a]">
                     <Flame className="h-3.5 w-3.5" />
                   </div>
                   <div>
-                    <h4 className="font-sans text-xs font-bold text-[#18181B]">{item.productName}</h4>
+                    <h4 className="font-sans text-xs font-bold text-[#0f223a]">{item.productName}</h4>
                     <p className="font-sans text-[10px] text-[#71717A]">{item.category || 'Dishes'}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-sans text-xs font-bold text-[#18181B]">{item.quantity} units</p>
+                  <p className="font-sans text-xs font-bold text-[#0f223a]">{item.quantity} units</p>
                   <p className="font-sans text-[10px] text-[#71717A]">Rs. {item.totalRevenue.toFixed(2)} revenue</p>
                 </div>
               </div>
@@ -358,7 +358,7 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
         {/* Store operational indicators */}
         <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 flex flex-col justify-between">
           <div>
-            <h3 className="font-sans text-sm font-bold text-[#18181B]">Live Volume Indicator</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a]">Live Volume Indicator</h3>
             <p className="font-sans text-xs text-[#71717A] mt-1">Status distribution of today's restaurant activities.</p>
             
             <div className="mt-6 space-y-4">
@@ -368,7 +368,7 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
                   <span>{totalProductsSold} items completed</span>
                 </div>
                 <div className="h-1.5 w-full bg-[#F4F4F5] rounded overflow-hidden">
-                  <div className="h-full bg-[#18181B] rounded" style={{ width: totalProductsSold > 0 ? `${Math.min(100, (totalProductsSold / 100) * 100)}%` : '0%' }} />
+                  <div className="h-full bg-[#0f223a] rounded" style={{ width: totalProductsSold > 0 ? `${Math.min(100, (totalProductsSold / 100) * 100)}%` : '0%' }} />
                 </div>
               </div>
 
@@ -378,7 +378,7 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
                   <span>Rs. {mExpenses.toFixed(2)} / Rs. 3,000 threshold</span>
                 </div>
                 <div className="h-1.5 w-full bg-[#F4F4F5] rounded overflow-hidden">
-                  <div className="h-full bg-[#18181B]" style={{ width: `${Math.min(100, (mExpenses / 3000) * 100)}%` }} />
+                  <div className="h-full bg-[#0f223a]" style={{ width: `${Math.min(100, (mExpenses / 3000) * 100)}%` }} />
                 </div>
               </div>
 
@@ -397,7 +397,7 @@ export default function Dashboard({ onNavigate, onQuickAction }: DashboardProps)
           <div className="mt-6 border-t border-[#E4E4E7] pt-4">
             <button 
               onClick={() => onNavigate('invoices')}
-              className="flex w-full items-center justify-between font-sans text-xs font-bold text-[#18181B] hover:opacity-85"
+              className="flex w-full items-center justify-between font-sans text-xs font-bold text-[#0f223a] hover:opacity-85"
             >
               <span>View General Invoices Ledger</span>
               <ArrowRight className="h-3.5 w-3.5" />

@@ -219,7 +219,7 @@ export default function Employees() {
     <div className="space-y-6 p-6 md:p-8 bg-[#F4F4F5] min-h-screen">
       {/* Toast Alert Header */}
       {statusMsg.text && (
-        <div id="toast-container" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#18181B] bg-white shadow-sm flex items-center gap-2`}>
+        <div id="toast-container" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#0f223a] bg-white shadow-sm flex items-center gap-2`}>
           <span className={`w-2 h-2 rounded-full ${statusMsg.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
           {statusMsg.text}
         </div>
@@ -228,14 +228,14 @@ export default function Employees() {
       {/* Page header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#E4E4E7]">
         <div>
-          <h1 id="employees-title" className="font-sans text-xl font-bold tracking-tight text-[#18181B]">Staff Management</h1>
+          <h1 id="employees-title" className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">Staff Management</h1>
           <p className="font-sans text-xs text-[#71717A]">Design structural categories, manage personnel lists, active roles, and contract wages.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button 
             id="btn-cat-form-open"
             onClick={() => setShowCatForm(true)}
-            className="inline-flex items-center gap-1.5 rounded border border-[#E4E4E7] bg-white px-3.5 py-2 font-sans text-xs font-semibold text-[#18181B] hover:bg-[#F4F4F5]"
+            className="inline-flex items-center gap-1.5 rounded border border-[#E4E4E7] bg-white px-3.5 py-2 font-sans text-xs font-semibold text-[#0f223a] hover:bg-[#F4F4F5]"
           >
             <Folders className="h-3.5 w-3.5 text-[#71717A]" />
             Manage Roles
@@ -244,7 +244,7 @@ export default function Employees() {
           <button 
             id="btn-emp-form-open"
             onClick={handleOpenAdd}
-            className="inline-flex items-center gap-1.5 rounded bg-[#18181B] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90"
+            className="inline-flex items-center gap-1.5 rounded bg-[#0f223a] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90"
           >
             <Plus className="h-4 w-4" />
             Onboard Employee
@@ -257,8 +257,8 @@ export default function Employees() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-xs p-4">
           <div className="w-full max-w-md rounded-xl border border-[#E4E4E7] bg-white p-6 shadow-lg">
             <div className="flex items-center justify-between border-b border-[#E4E4E7] pb-4">
-              <h2 className="font-sans text-sm font-bold text-[#18181B]">Manage Categories & Roles</h2>
-              <button onClick={() => setShowCatForm(false)} className="rounded p-1 hover:bg-[#F4F4F5] text-[#18181B]"><X className="h-4 w-4" /></button>
+              <h2 className="font-sans text-sm font-bold text-[#0f223a]">Manage Categories & Roles</h2>
+              <button type="button" onClick={() => setShowCatForm(false)} className="rounded p-1 hover:bg-[#F4F4F5] text-[#0f223a]"><X className="h-4 w-4" /></button>
             </div>
             
             <form onSubmit={handleSubmitCat} className="mt-4 space-y-3">
@@ -282,16 +282,16 @@ export default function Employees() {
                   rows={2}
                 />
               </div>
-              <button type="submit" className="w-full rounded bg-[#18181B] py-2 font-sans text-xs font-bold text-white hover:opacity-90">
+              <button type="submit" className="w-full rounded bg-[#0f223a] py-2 font-sans text-xs font-bold text-white hover:opacity-90">
                 Register Category Role
               </button>
             </form>
 
             <div className="mt-6 border-t border-[#E4E4E7] pt-4">
-              <h3 className="text-xs font-bold text-[#18181B] mb-2">Registered Active Groups</h3>
+              <h3 className="text-xs font-bold text-[#0f223a] mb-2">Registered Active Groups</h3>
               <div className="max-h-40 overflow-y-auto space-y-1.5">
                 {categories.map((c) => (
-                  <div key={c.id} className="flex items-center justify-between rounded bg-[#F4F4F5] px-3 py-2 text-xs text-[#18181B]">
+                  <div key={c.id} className="flex items-center justify-between rounded bg-[#F4F4F5] px-3 py-2 text-xs text-[#0f223a]">
                     <div>
                       <p className="font-bold">{c.name}</p>
                       <p className="text-[10px] text-[#71717A]">{c.description || 'No description'}</p>
@@ -319,10 +319,10 @@ export default function Employees() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-xs p-4">
           <div className="w-full max-w-lg rounded-xl border border-[#E4E4E7] bg-white p-6 shadow-lg">
             <div className="flex items-center justify-between border-b border-[#E4E4E7] pb-4">
-              <h2 className="font-sans text-sm font-bold text-[#18181B]">
+              <h2 className="font-sans text-sm font-bold text-[#0f223a]">
                 {editingEmp ? `Edit Profile - ${editingEmp.name}` : 'Onboard New Chef / Captain'}
               </h2>
-              <button onClick={() => setShowEmpForm(false)} className="rounded p-1 hover:bg-[#F4F4F5] text-[#18181B]"><X className="h-4 w-4" /></button>
+              <button type="button" onClick={() => setShowEmpForm(false)} className="rounded p-1 hover:bg-[#F4F4F5] text-[#0f223a]"><X className="h-4 w-4" /></button>
             </div>
 
             <form onSubmit={handleSubmitEmp} className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -381,14 +381,14 @@ export default function Employees() {
                   <button 
                     type="button"
                     onClick={() => setEmpForm({...empForm, salaryType: 'monthly'})}
-                    className={`flex-1 rounded py-1.5 text-xs font-semibold border transition-colors ${empForm.salaryType === 'monthly' ? 'bg-[#18181B] text-white border-transparent' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
+                    className={`flex-1 rounded py-1.5 text-xs font-semibold border transition-colors ${empForm.salaryType === 'monthly' ? 'bg-[#0f223a] text-white border-transparent' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
                   >
                     Monthly Contract
                   </button>
                   <button 
                     type="button"
                     onClick={() => setEmpForm({...empForm, salaryType: 'daily'})}
-                    className={`flex-1 rounded py-1.5 text-xs font-semibold border transition-colors ${empForm.salaryType === 'daily' ? 'bg-[#18181B] text-white border-transparent' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
+                    className={`flex-1 rounded py-1.5 text-xs font-semibold border transition-colors ${empForm.salaryType === 'daily' ? 'bg-[#0f223a] text-white border-transparent' : 'bg-white text-[#71717A] border-[#E4E4E7] hover:bg-[#F4F4F5]'}`}
                   >
                     Daily Wage Rate
                   </button>
@@ -454,7 +454,7 @@ export default function Employees() {
                 </button>
                 <button 
                   type="submit"
-                  className="flex-1 rounded bg-[#18181B] py-2.5 text-xs font-bold text-white hover:opacity-90 shrink-0"
+                  className="flex-1 rounded bg-[#0f223a] py-2.5 text-xs font-bold text-white hover:opacity-90 shrink-0"
                 >
                   Save Employee Sheet
                 </button>
@@ -519,13 +519,13 @@ export default function Employees() {
 
       {loading ? (
         <div className="flex h-32 items-center justify-center">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#18181B] border-t-transparent" />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#0f223a] border-t-transparent" />
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border border-[#E4E4E7] bg-white">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-xs text-[#71717A]">
-              <thead className="bg-[#F4F4F5] font-sans font-bold text-[#18181B] border-b border-[#E4E4E7]">
+              <thead className="bg-[#F4F4F5] font-sans font-bold text-[#0f223a] border-b border-[#E4E4E7]">
                 <tr>
                   <th className="px-6 py-4">Employee Details</th>
                   <th className="px-6 py-4">Assigned Role</th>
@@ -539,15 +539,15 @@ export default function Employees() {
                 {employees.map((emp) => (
                   <tr key={emp.id} className="hover:bg-[#F9F9F9] transition-colors">
                     <td className="px-6 py-4">
-                      <div className="font-bold text-[#18181B]">{emp.name}</div>
+                      <div className="font-bold text-[#0f223a]">{emp.name}</div>
                       <div className="text-[10px] text-[#A1A1AA] font-mono mt-0.5">{emp.phone || 'No phone'}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex rounded bg-[#F4F4F5] px-2.5 py-0.5 text-[10px] font-bold text-[#18181B]">
+                      <span className="inline-flex rounded bg-[#F4F4F5] px-2.5 py-0.5 text-[10px] font-bold text-[#0f223a]">
                         {emp.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-[#18181B]">
+                    <td className="px-6 py-4 font-bold text-[#0f223a]">
                       {emp.salaryType === 'monthly' ? (
                         <span>Rs. {emp.monthlySalary?.toFixed(2)} <span className="text-[10px] text-[#71717A] font-normal">/ mo</span></span>
                       ) : (
@@ -559,7 +559,7 @@ export default function Employees() {
                       {emp.status === 'active' ? (
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-bold text-green-700">
                           <Check className="h-2.5 w-2.5" />
-                          ACTIVE
+                           ACTIVE
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 rounded bg-[#F4F4F5] px-2 py-0.5 text-[10px] font-bold text-[#71717A]">
@@ -572,7 +572,7 @@ export default function Employees() {
                       <div className="flex justify-end gap-1.5">
                         <button 
                           onClick={() => handleOpenEdit(emp)}
-                          className="rounded p-1 text-[#A1A1AA] hover:bg-[#F4F4F5] hover:text-[#18181B]"
+                          className="rounded p-1 text-[#A1A1AA] hover:bg-[#F4F4F5] hover:text-[#0f223a]"
                         >
                           <Edit className="h-4 w-4" />
                         </button>

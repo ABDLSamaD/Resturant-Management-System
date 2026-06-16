@@ -220,7 +220,7 @@ export default function Payroll() {
   return (
     <div className="space-y-6 p-6 md:p-8 bg-[#F4F4F5] min-h-screen">
       {statusMsg.text && (
-        <div id="toast-wrapper" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#18181B] bg-white shadow-sm flex items-center gap-2`}>
+        <div id="toast-wrapper" className={`fixed top-4 right-4 z-50 rounded border border-[#E4E4E7] p-4 font-sans text-xs font-semibold text-[#0f223a] bg-white shadow-sm flex items-center gap-2`}>
           <span className={`w-2 h-2 rounded-full ${statusMsg.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`} />
           {statusMsg.text}
         </div>
@@ -229,7 +229,7 @@ export default function Payroll() {
       {/* Page Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between pb-4 border-b border-[#E4E4E7]">
         <div>
-          <h1 id="payroll-title" className="font-sans text-xl font-bold tracking-tight text-[#18181B]">Salaries & Payroll Center</h1>
+          <h1 id="payroll-title" className="font-sans text-xl font-bold tracking-tight text-[#0f223a]">Salaries & Payroll Center</h1>
           <p className="font-sans text-xs text-[#71717A]">Run calculations, hand out cash advances, and register base salary increases.</p>
         </div>
 
@@ -239,7 +239,7 @@ export default function Payroll() {
             <select 
               value={selectedMonth}
               onChange={e => setSelectedMonth(Number(e.target.value))}
-              className="bg-transparent px-2.5 py-1 text-xs font-semibold text-[#18181B] focus:outline-none"
+              className="bg-transparent px-2.5 py-1 text-xs font-semibold text-[#0f223a] focus:outline-none"
             >
               {monthNames.map((name, i) => (
                 <option key={i} value={i + 1}>{name}</option>
@@ -248,7 +248,7 @@ export default function Payroll() {
             <select 
               value={selectedYear}
               onChange={e => setSelectedYear(Number(e.target.value))}
-              className="bg-transparent px-2 py-1 text-xs font-semibold text-[#18181B] focus:outline-none border-l border-[#E4E4E7]"
+              className="bg-transparent px-2 py-1 text-xs font-semibold text-[#0f223a] focus:outline-none border-l border-[#E4E4E7]"
             >
               <option value="2026">2026</option>
               <option value="2027">2027</option>
@@ -257,7 +257,7 @@ export default function Payroll() {
 
           <button 
             onClick={handleDownloadMonthlyPayrollReport}
-            className="inline-flex items-center gap-1.5 rounded bg-[#18181B] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90"
+            className="inline-flex items-center gap-1.5 rounded bg-[#0f223a] px-3.5 py-2 font-sans text-xs font-semibold text-white hover:opacity-90"
           >
             <Printer className="h-3.5 w-3.5" />
             Payroll PDF
@@ -269,19 +269,19 @@ export default function Payroll() {
       <div className="flex border-b border-[#E4E4E7] gap-4">
         <button 
           onClick={() => setActiveTab('payouts')}
-          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'payouts' ? 'border-[#18181B] text-[#18181B]' : 'border-transparent text-[#71717A] hover:text-[#18181B]'}`}
+          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'payouts' ? 'border-[#0f223a] text-[#0f223a]' : 'border-transparent text-[#71717A] hover:text-[#0f223a]'}`}
         >
           Process Salaries
         </button>
         <button 
           onClick={() => setActiveTab('advances')}
-          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'advances' ? 'border-[#18181B] text-[#18181B]' : 'border-transparent text-[#71717A] hover:text-[#18181B]'}`}
+          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'advances' ? 'border-[#0f223a] text-[#0f223a]' : 'border-transparent text-[#71717A] hover:text-[#0f223a]'}`}
         >
           Salary Advances Taken
         </button>
         <button 
           onClick={() => setActiveTab('raises')}
-          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'raises' ? 'border-[#18181B] text-[#18181B]' : 'border-transparent text-[#71717A] hover:text-[#18181B]'}`}
+          className={`px-1 py-2 text-xs font-bold -mb-px border-b-2 transition-colors ${activeTab === 'raises' ? 'border-[#0f223a] text-[#0f223a]' : 'border-transparent text-[#71717A] hover:text-[#0f223a]'}`}
         >
           Salary Increase History
         </button>
@@ -293,14 +293,14 @@ export default function Payroll() {
           {/* Unprocessed Staff list */}
           <div className="lg:col-span-2 space-y-4">
             <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
-              <h3 className="font-sans text-xs font-bold text-[#18181B] uppercase tracking-wider mb-3">On-Duty Payroll Execution desk</h3>
+              <h3 className="font-sans text-xs font-bold text-[#0f223a] uppercase tracking-wider mb-3">On-Duty Payroll Execution desk</h3>
               <div className="space-y-3">
                 {employees.map(emp => {
                   const paid = payments.find(p => p.employee === emp.id);
                   return (
                     <div key={emp.id} className="flex items-center justify-between border-b border-[#E4E4E7]/60 pb-3 last:border-0 last:pb-0">
                       <div>
-                        <h4 className="font-sans text-xs font-bold text-[#18181B]">{emp.name}</h4>
+                        <h4 className="font-sans text-xs font-bold text-[#0f223a]">{emp.name}</h4>
                         <p className="font-sans text-[10px] text-[#71717A]">{emp.category} (Rate: {emp.salaryType === 'monthly' ? `Rs. ${emp.monthlySalary}/mo` : `Rs. ${emp.dailyWage}/day`})</p>
                       </div>
 
@@ -312,7 +312,7 @@ export default function Payroll() {
                         <button 
                           id={`payout-btn-${emp.id}`}
                           onClick={() => handleOpenPayout(emp)}
-                          className="inline-flex items-center gap-1.5 rounded border border-[#E4E4E7] bg-[#F4F4F5] px-3 py-1.5 font-sans text-[10px] font-bold text-[#18181B] hover:bg-[#E4E4E7] transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded border border-[#E4E4E7] bg-[#F4F4F5] px-3 py-1.5 font-sans text-[10px] font-bold text-[#0f223a] hover:bg-[#E4E4E7] transition-colors"
                         >
                           Calculate Salary
                           <ArrowRight className="h-3.5 w-3.5" />
@@ -328,15 +328,15 @@ export default function Payroll() {
           {/* Small Month overview card */}
           <div className="space-y-4">
             <div className="rounded-xl border border-[#E4E4E7] bg-white p-5">
-              <h3 className="font-sans text-xs font-bold text-[#18181B] uppercase tracking-widest mb-3">Current Payouts Stat</h3>
+              <h3 className="font-sans text-xs font-bold text-[#0f223a] uppercase tracking-widest mb-3">Current Payouts Stat</h3>
               <div className="space-y-3 text-xs">
                 <div className="flex justify-between">
                   <span className="text-[#71717A] font-medium">Month-Cycle</span>
-                  <span className="font-bold text-[#18181B]">{monthNames[selectedMonth-1]} {selectedYear}</span>
+                  <span className="font-bold text-[#0f223a]">{monthNames[selectedMonth-1]} {selectedYear}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#71717A] font-medium">Salaries Transferred</span>
-                  <span className="font-bold text-[#18181B]">Rs. {payments.reduce((sum, p) => sum + p.paidAmount, 0).toFixed(2)}</span>
+                  <span className="font-bold text-[#0f223a]">Rs. {payments.reduce((sum, p) => sum + p.paidAmount, 0).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#71717A] font-medium">Unpaid/Accrued Pool</span>
@@ -346,14 +346,14 @@ export default function Payroll() {
             </div>
             
             <button 
-              onClick={() => setShowRaiseForm(true)}
+               onClick={() => setShowRaiseForm(true)}
               className="w-full flex items-center justify-between rounded-xl border border-[#E4E4E7] bg-[#F4F4F5] hover:bg-[#E4E4E7] p-4 text-left transition-colors"
             >
               <div>
-                <p className="font-sans text-xs font-bold text-[#18181B]">Assign Salary Increase</p>
+                <p className="font-sans text-xs font-bold text-[#0f223a]">Assign Salary Increase</p>
                 <p className="font-sans text-[10px] text-[#71717A] mt-1">Increment bases based on merits.</p>
               </div>
-              <TrendingUp className="h-5 w-5 text-[#18181B]" />
+              <TrendingUp className="h-5 w-5 text-[#0f223a]" />
             </button>
           </div>
         </div>
@@ -363,11 +363,11 @@ export default function Payroll() {
       {activeTab === 'advances' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="font-sans text-sm font-bold text-[#18181B]">Advances issued for {monthNames[selectedMonth-1]}</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a]">Advances issued for {monthNames[selectedMonth-1]}</h3>
             <button 
               id="btn-advance-open"
               onClick={() => setShowAdvanceForm(true)}
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#18181B] hover:opacity-80 rounded border border-[#E4E4E7] bg-white px-3 py-1.5"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#0f223a] hover:opacity-80 rounded border border-[#E4E4E7] bg-white px-3 py-1.5"
             >
               <Plus className="h-4 w-4" /> Issue Advance
             </button>
@@ -375,7 +375,7 @@ export default function Payroll() {
 
           <div className="overflow-hidden rounded-xl border border-[#E4E4E7] bg-white">
             <table className="w-full border-collapse text-left text-xs text-[#71717A]">
-              <thead className="bg-[#F4F4F5] font-bold text-[#18181B] border-b border-[#E4E4E7]">
+              <thead className="bg-[#F4F4F5] font-bold text-[#0f223a] border-b border-[#E4E4E7]">
                 <tr>
                   <th className="px-6 py-3">Employee Name</th>
                   <th className="px-6 py-3">Issue Date</th>
@@ -386,9 +386,9 @@ export default function Payroll() {
               <tbody className="divide-y divide-[#E4E4E7]">
                 {advances.map(adv => (
                   <tr key={adv.id} className="hover:bg-[#F9F9F9] transition-colors">
-                    <td className="px-6 py-4 font-bold text-[#18181B]">{adv.employeeName}</td>
+                    <td className="px-6 py-4 font-bold text-[#0f223a]">{adv.employeeName}</td>
                     <td className="px-6 py-4 text-[#71717A]">{adv.date}</td>
-                    <td className="px-6 py-4 font-bold text-[#18181B]">Rs. {adv.amount.toFixed(2)}</td>
+                    <td className="px-6 py-4 font-bold text-[#0f223a]">Rs. {adv.amount.toFixed(2)}</td>
                     <td className="px-6 py-4 text-[#A1A1AA] italic">{adv.notes || 'No notes added'}</td>
                   </tr>
                 ))}
@@ -407,10 +407,10 @@ export default function Payroll() {
       {activeTab === 'raises' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="font-sans text-sm font-bold text-[#18181B]">Wages Scale Revision History</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a]">Wages Scale Revision History</h3>
             <button 
               onClick={() => setShowRaiseForm(true)}
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#18181B] hover:opacity-80 rounded border border-[#E4E4E7] bg-white px-3 py-1.5"
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#0f223a] hover:opacity-80 rounded border border-[#E4E4E7] bg-white px-3 py-1.5"
             >
               <Plus className="h-4 w-4" /> Revise Wage Scale
             </button>
@@ -418,7 +418,7 @@ export default function Payroll() {
 
           <div className="overflow-hidden rounded-xl border border-[#E4E4E7] bg-white">
             <table className="w-full border-collapse text-left text-xs text-[#71717A]">
-              <thead className="bg-[#F4F4F5] font-bold text-[#18181B] border-b border-[#E4E4E7]">
+              <thead className="bg-[#F4F4F5] font-bold text-[#0f223a] border-b border-[#E4E4E7]">
                 <tr>
                   <th className="px-6 py-3">Staff Profile</th>
                   <th className="px-6 py-3">Previous Base</th>
@@ -431,12 +431,12 @@ export default function Payroll() {
               <tbody className="divide-y divide-[#E4E4E7] font-sans">
                 {histories.map(sh => (
                   <tr key={sh.id} className="hover:bg-[#F9F9F9] transition-colors">
-                    <td className="px-6 py-4 font-bold text-[#18181B]">{sh.employeeName}</td>
+                    <td className="px-6 py-4 font-bold text-[#0f223a]">{sh.employeeName}</td>
                     <td className="px-6 py-4 text-[#71717A]">Rs. {sh.oldSalary.toFixed(2)}</td>
                     <td className="px-6 py-4 text-green-700 font-semibold">
                       +{sh.increaseType === 'fixed' ? `Rs. ${sh.increaseValue}` : `${sh.increaseValue}%`}
                     </td>
-                    <td className="px-6 py-4 font-bold text-[#18181B]">Rs. {sh.newSalary.toFixed(2)}</td>
+                    <td className="px-6 py-4 font-bold text-[#0f223a]">Rs. {sh.newSalary.toFixed(2)}</td>
                     <td className="px-6 py-4 text-[#71717A]">{sh.reason}</td>
                     <td className="px-6 py-4 text-[#A1A1AA] font-mono text-[10px]">{sh.effectiveDate}</td>
                   </tr>
@@ -456,24 +456,24 @@ export default function Payroll() {
       {showPayoutModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-xs p-4">
           <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg border border-[#E4E4E7]">
-            <h3 className="font-sans text-sm font-bold text-[#18181B] pb-3 border-b border-[#E4E4E7]">Execute Monthly Pay Processing</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a] pb-3 border-b border-[#E4E4E7]">Execute Monthly Pay Processing</h3>
             
             {calcDetails ? (
               <form onSubmit={handleRegisterPayout} className="mt-4 space-y-4">
                 <div className="rounded border border-[#E4E4E7] bg-[#F4F4F5] p-4 space-y-2 mt-2">
                   <div className="flex justify-between text-xs text-[#71717A]">
                     <span>Beneficiary:</span>
-                    <span className="font-bold text-[#18181B]">{calcDetails.employeeName}</span>
+                    <span className="font-bold text-[#0f223a]">{calcDetails.employeeName}</span>
                   </div>
                   <div className="flex justify-between text-xs text-[#71717A]">
                     <span>Base Salary / Calculated Pay:</span>
-                    <span className="font-bold text-[#18181B]">Rs. {calcDetails.baseSalary.toFixed(2)}</span>
+                    <span className="font-bold text-[#0f223a]">Rs. {calcDetails.baseSalary.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-xs text-[#71717A]">
                     <span>Advances Deductibles (Subtracted):</span>
                     <span className="font-bold text-red-650 text-red-600">-Rs. {calcDetails.totalAdvances.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between border-t border-[#E4E4E7] pt-2 text-sm font-bold text-[#18181B] mt-2">
+                  <div className="flex justify-between border-t border-[#E4E4E7] pt-2 text-sm font-bold text-[#0f223a] mt-2">
                     <span>Final Net Payable:</span>
                     <span className="text-green-700">Rs. {calcDetails.finalPayable.toFixed(2)}</span>
                   </div>
@@ -516,7 +516,7 @@ export default function Payroll() {
                   <button 
                     type="submit"
                     disabled={processingPay}
-                    className="flex-1 rounded bg-[#18181B] py-2 text-xs font-bold text-white hover:opacity-90 disabled:opacity-50"
+                    className="flex-1 rounded bg-[#0f223a] py-2 text-xs font-bold text-white hover:opacity-90 disabled:opacity-50"
                   >
                     Authorize payout
                   </button>
@@ -533,7 +533,7 @@ export default function Payroll() {
       {showAdvanceForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-xs p-4">
           <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-lg border border-[#E4E4E7]">
-            <h3 className="font-sans text-sm font-bold text-[#18181B] pb-3 border-b border-[#E4E4E7]">Issue Cash Advance</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a] pb-3 border-b border-[#E4E4E7]">Issue Cash Advance</h3>
             
             <form onSubmit={handleRegisterAdvance} className="mt-4 space-y-3">
               <div>
@@ -569,7 +569,7 @@ export default function Payroll() {
                   type="date"
                   value={advanceForm.date}
                   onChange={e => setAdvanceForm({...advanceForm, date: e.target.value})}
-                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#18181B] bg-white"
+                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#0f223a] bg-white"
                 />
               </div>
 
@@ -586,7 +586,7 @@ export default function Payroll() {
 
               <div className="flex gap-2 pt-4 border-t border-[#E4E4E7]">
                 <button type="button" onClick={() => setShowAdvanceForm(false)} className="flex-1 rounded border border-[#E4E4E7] py-2 text-xs font-bold text-[#71717A] hover:bg-[#F4F4F5]">Cancel</button>
-                <button type="submit" className="flex-1 rounded bg-[#18181B] py-2 text-xs font-bold text-white hover:opacity-90">Disburse Cash</button>
+                <button type="submit" className="flex-1 rounded bg-[#0f223a] py-2 text-xs font-bold text-white hover:opacity-90">Disburse Cash</button>
               </div>
             </form>
           </div>
@@ -597,7 +597,7 @@ export default function Payroll() {
       {showRaiseForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-xs p-4">
           <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-lg border border-[#E4E4E7]">
-            <h3 className="font-sans text-sm font-bold text-[#18181B] pb-3 border-b border-[#E4E4E7]">Execute Salary Raise</h3>
+            <h3 className="font-sans text-sm font-bold text-[#0f223a] pb-3 border-b border-[#E4E4E7]">Execute Salary Raise</h3>
             
             <form onSubmit={handleRegisterRaise} className="mt-4 space-y-3">
               <div>
@@ -645,7 +645,7 @@ export default function Payroll() {
                   type="date"
                   value={raiseForm.effectiveDate}
                   onChange={e => setRaiseForm({...raiseForm, effectiveDate: e.target.value})}
-                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#18181B] bg-white"
+                  className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#0f223a] bg-white"
                 />
               </div>
 
@@ -663,7 +663,7 @@ export default function Payroll() {
 
               <div className="flex gap-2 pt-4 border-t border-[#E4E4E7]">
                 <button type="button" onClick={() => setShowRaiseForm(false)} className="flex-1 rounded border border-[#E4E4E7] py-2 text-xs font-bold text-[#71717A] hover:bg-[#F4F4F5]">Cancel</button>
-                <button type="submit" className="flex-1 rounded bg-[#18181B] py-2 text-xs font-bold text-white hover:opacity-90">Authorize revision</button>
+                <button type="submit" className="flex-1 rounded bg-[#0f223a] py-2 text-xs font-bold text-white hover:opacity-90">Authorize revision</button>
               </div>
             </form>
           </div>
