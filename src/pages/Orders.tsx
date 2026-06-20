@@ -43,6 +43,10 @@ export default function Orders() {
   const [isPlacing, setIsPlacing] = useState(false);
   const [ticketToPrint, setTicketToPrint] = useState<Order | null>(null);
 
+  // Credit inputs
+  const [paymentType, setPaymentType] = useState<'cash' | 'credit'>('cash');
+  const [dueDate, setDueDate] = useState<string>('');
+
   // Trigger browser print for kitchen staff ticket
   const triggerPrintTicket = (order: Order) => {
     setTicketToPrint(order);
@@ -154,16 +158,23 @@ export default function Orders() {
       return;
     }
 
+    if (paymentType === 'credit' && (!customerName.trim() || !customerPhone.trim() || !dueDate)) {
+      triggerToast('error', 'Debtor Name, Contact Phone, and Payment Due Date are mandatory for credit terms.');
+      return;
+    }
+
     try {
       setIsPlacing(true);
       const payload = {
         orderType,
         tableNumber: orderType === 'dine-in' ? tableNumber : undefined,
-        customerName: orderType !== 'dine-in' ? customerName : undefined,
-        customerPhone: orderType !== 'dine-in' ? customerPhone : undefined,
+        customerName: (orderType !== 'dine-in' || paymentType === 'credit') ? customerName : undefined,
+        customerPhone: (orderType !== 'dine-in' || paymentType === 'credit') ? customerPhone : undefined,
         customerAddress: orderType === 'delivery' ? customerAddress : undefined,
         items: cart.map(it => ({ productId: it.productId, quantity: it.quantity })),
-        discount: discValue
+        discount: discValue,
+        paymentType,
+        dueDate: paymentType === 'credit' ? dueDate : undefined
       };
 
       const res = await fetch('/api/orders', {
@@ -182,6 +193,8 @@ export default function Orders() {
         setCustomerName('');
         setCustomerPhone('');
         setCustomerAddress('');
+        setPaymentType('cash');
+        setDueDate('');
         loadRecentOrders();
       } else {
         triggerToast('error', data.message || 'Error executing order.');
@@ -408,7 +421,7 @@ export default function Orders() {
                   placeholder="e.g. Table 5, Terrace Lounge..."
                   value={tableNumber}
                   onChange={e => setTableNumber(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none"
+                  className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none bg-white text-slate-800"
                 />
               </div>
             ) : (
@@ -420,7 +433,7 @@ export default function Orders() {
                     placeholder="e.g. Jane Jenkins"
                     value={customerName}
                     onChange={e => setCustomerName(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none"
+                    className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none bg-white text-slate-800"
                   />
                 </div>
                 <div>
@@ -430,7 +443,7 @@ export default function Orders() {
                     placeholder="e.g. 555-1200"
                     value={customerPhone}
                     onChange={e => setCustomerPhone(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none"
+                    className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none bg-white text-slate-800 font-sans"
                   />
                 </div>
                 {orderType === 'delivery' && (
@@ -440,11 +453,92 @@ export default function Orders() {
                       placeholder="e.g. Apartment 4B, Food district..."
                       value={customerAddress}
                       onChange={e => setCustomerAddress(e.target.value)}
-                      className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none"
+                      className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs focus:outline-none bg-white text-slate-800"
                       rows={2}
                     />
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Payment Method Selector */}
+            <div className="border-t border-slate-100 pt-3">
+              <label className="block text-[10px] font-extrabold text-slate-500 uppercase">Payment Option Type</label>
+              <div className="flex gap-1.5 mt-1">
+                <button 
+                  type="button"
+                  onClick={() => setPaymentType('cash')}
+                  className={`flex-1 rounded-lg py-1.5 text-[10px] font-bold border transition-colors ${paymentType === 'cash' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200'}`}
+                >
+                  Cash / Card
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setPaymentType('credit');
+                    const d = new Date();
+                    d.setDate(d.getDate() + 7);
+                    setDueDate(d.toISOString().split('T')[0]);
+                  }}
+                  className={`flex-1 rounded-lg py-1.5 text-[10px] font-bold border transition-colors ${paymentType === 'credit' ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-slate-600 border-slate-200'}`}
+                >
+                  On Credit
+                </button>
+              </div>
+            </div>
+
+            {/* Conditional debtor collection fields */}
+            {paymentType === 'credit' && orderType === 'dine-in' && (
+              <div className="space-y-2 border border-dashed border-amber-300 bg-amber-50/40 p-3 rounded-lg">
+                <span className="text-[9px] font-extrabold text-amber-800 uppercase">Debtor Ledger Details</span>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 uppercase">Client Name *</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. Wali Khan"
+                    value={customerName}
+                    onChange={e => setCustomerName(e.target.value)}
+                    className="mt-1 w-full rounded border border-slate-200 px-2.5 py-1 text-xs focus:outline-none bg-white text-slate-800 font-sans font-semibold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-550 uppercase">Phone Number *</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. +92 300 1234567"
+                    value={customerPhone}
+                    onChange={e => setCustomerPhone(e.target.value)}
+                    className="mt-1 w-full rounded border border-slate-200 px-2.5 py-1 text-xs focus:outline-none bg-white text-slate-805"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 uppercase">Target Due Date *</label>
+                  <input 
+                    type="date" 
+                    required
+                    value={dueDate}
+                    onChange={e => setDueDate(e.target.value)}
+                    className="mt-1 w-full rounded border border-slate-200 px-2.5 py-1 text-xs focus:outline-none bg-white text-slate-800"
+                  />
+                </div>
+              </div>
+            )}
+
+            {paymentType === 'credit' && orderType !== 'dine-in' && (
+              <div className="space-y-2 border border-dashed border-amber-300 bg-amber-50/40 p-3 rounded-lg">
+                <span className="text-[9px] font-extrabold text-amber-800 uppercase">Target Settlement Date</span>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 uppercase">Credit Due date *</label>
+                  <input 
+                    type="date" 
+                    required
+                    value={dueDate}
+                    onChange={e => setDueDate(e.target.value)}
+                    className="mt-1 w-full rounded border border-slate-200 px-2.5 py-1 text-xs focus:outline-none bg-white text-slate-800"
+                  />
+                </div>
               </div>
             )}
 

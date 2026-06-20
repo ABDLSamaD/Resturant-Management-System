@@ -74,6 +74,7 @@ export interface ProductCategory {
   name: string;
   description?: string;
   isActive: boolean;
+  shopId?: string; // Associated Shop reference ID
   createdAt: string;
 }
 
@@ -99,7 +100,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   orderNumber: string;
-  orderType: 'dine-in' | 'delivery' | 'takeaway';
+  orderType: 'dine-in' | 'delivery' | 'takeaway' | 'hand-to-hand' | 'on-table' | 'cash';
   tableNumber?: string;
   customerName?: string;
   customerPhone?: string;
@@ -109,6 +110,31 @@ export interface Order {
   discount: number; // Default 0
   grandTotal: number;
   status: 'pending' | 'completed' | 'cancelled';
+  paymentStatus: 'paid' | 'credit';
+  paymentDueDate?: string; // YYYY-MM-DD
+  createdAt: string;
+}
+
+export interface Shop {
+  id: string;
+  name: string;
+  phone?: string;
+  description?: string;
+  address?: string;
+  createdAt: string;
+}
+
+export interface CreditRecord {
+  id: string;
+  orderId: string;
+  orderNumber: string;
+  customerName: string;
+  customerPhone?: string;
+  amount: number;
+  dueDate?: string;
+  status: 'pending' | 'settled';
+  settledAt?: string;
+  notes?: string;
   createdAt: string;
 }
 
@@ -139,6 +165,17 @@ export interface Expense {
   createdAt: string;
 }
 
+export interface CategoryPerformance {
+  id: string;
+  categoryName: string; // e.g. "Fast Food", "Barbecue & Tikka", "Chinese", "Desserts"
+  date: string; // YYYY-MM-DD
+  dailyExpenses: number;
+  dailyEarnings: number;
+  profitSharingRatio: number; // e.g. percentage like 25% or manual ratio
+  profitSharingNotes?: string;
+  createdAt: string;
+}
+
 export interface RestaurantSettings {
   restaurantName: string;
   phone: string;
@@ -160,7 +197,10 @@ export interface DatabaseSchema {
   invoices: Invoice[];
   expenseCategories: ExpenseCategory[];
   expenses: Expense[];
+  categoryPerformances: CategoryPerformance[];
   settings: RestaurantSettings;
+  shops: Shop[];
+  credits: CreditRecord[];
 }
 
 // Initial/default seed data
@@ -238,6 +278,7 @@ const DEFAULT_DB: DatabaseSchema = {
       discount: 3.00,
       grandTotal: 45.00,
       status: 'completed',
+      paymentStatus: 'paid',
       createdAt: '2026-06-16T12:00:00.000Z'
     },
     {
@@ -256,6 +297,7 @@ const DEFAULT_DB: DatabaseSchema = {
       discount: 0,
       grandTotal: 17.00,
       status: 'completed',
+      paymentStatus: 'paid',
       createdAt: '2026-06-16T13:30:00.000Z'
     },
     {
@@ -270,6 +312,8 @@ const DEFAULT_DB: DatabaseSchema = {
       discount: 0,
       grandTotal: 13.00,
       status: 'pending',
+      paymentStatus: 'credit',
+      paymentDueDate: '2026-06-25',
       createdAt: '2026-06-16T14:00:00.000Z'
     }
   ],
@@ -292,6 +336,7 @@ const DEFAULT_DB: DatabaseSchema = {
         discount: 3.00,
         grandTotal: 45.00,
         status: 'completed',
+        paymentStatus: 'paid',
         createdAt: '2026-06-16T12:00:00.000Z'
       },
       totalAmount: 45.00,
@@ -317,6 +362,7 @@ const DEFAULT_DB: DatabaseSchema = {
         discount: 0,
         grandTotal: 17.00,
         status: 'completed',
+        paymentStatus: 'paid',
         createdAt: '2026-06-16T13:30:00.000Z'
       },
       totalAmount: 17.00,
@@ -335,13 +381,53 @@ const DEFAULT_DB: DatabaseSchema = {
     { id: 'exp-2', title: 'Electricity Bill May', category: 'Utility Bills', amount: 320, date: '2026-06-03', notes: 'State Power invoice #9910', createdAt: '2026-06-03T11:00:00.000Z' },
     { id: 'exp-3', title: 'Meat and Poultry supplies', category: 'Raw Material', amount: 450, date: '2026-06-10', notes: 'Direct purchase from Halal meat wholesalers', createdAt: '2026-06-10T14:00:00.000Z' }
   ],
+  categoryPerformances: [
+    {
+      id: "cp-1",
+      categoryName: "Fast Food",
+      date: "2026-06-16",
+      dailyExpenses: 120.00,
+      dailyEarnings: 450.00,
+      profitSharingRatio: 25,
+      profitSharingNotes: "Fast Food partnership bonus",
+      createdAt: "2026-06-16T12:00:00.000Z"
+    },
+    {
+      id: "cp-2",
+      categoryName: "Barbecue & Tikka",
+      date: "2026-06-16",
+      dailyExpenses: 200.00,
+      dailyEarnings: 680.00,
+      profitSharingRatio: 30,
+      profitSharingNotes: "Flame & coal chef commission",
+      createdAt: "2026-06-16T12:00:00.000Z"
+    },
+    {
+      id: "cp-3",
+      categoryName: "Chinese Cuisine",
+      date: "2026-06-16",
+      dailyExpenses: 90.00,
+      dailyEarnings: 310.00,
+      profitSharingRatio: 20,
+      profitSharingNotes: "Wok special incentive share",
+      createdAt: "2026-06-16T12:00:00.000Z"
+    }
+  ],
   settings: {
     restaurantName: 'The Royal Spice',
     phone: '+1 (555) 123-4567',
     address: '123 Gourmet Blvd, Food District, Capital City',
     invoiceFooterText: 'Thank you for dining with us! Come back soon.',
     logoText: 'R'
-  }
+  },
+  shops: [
+    { id: 'shop-1', name: 'Royal Tandoor & Curries', phone: '555-1200', description: 'Fresh nan, chapati, dal, and traditional curries', address: 'Counter 1, Food District', createdAt: '2026-05-15T00:00:00.000Z' },
+    { id: 'shop-2', name: 'Fast Food Corner', phone: '555-1210', description: 'Gourmet burgers, pizzas, and golden fries', address: 'Counter 2, Food District', createdAt: '2026-05-15T00:00:00.000Z' },
+    { id: 'shop-3', name: 'Coal Grill & Barbecue', phone: '555-1220', description: 'Barbecue, tikka and tandoori skewers', address: 'Stall 5, Food District', createdAt: '2026-05-15T00:00:00.000Z' }
+  ],
+  credits: [
+    { id: 'cred-1', orderId: 'o-1003', orderNumber: 'Order-20260616-003', customerName: 'Imran Khan', customerPhone: '555-4000', amount: 13.00, dueDate: '2026-06-25', status: 'pending', createdAt: '2026-06-16T14:00:00.000Z' }
+  ]
 };
 
 // Ensure data folder and file exists
@@ -363,7 +449,10 @@ export function initializeDB(): DatabaseSchema {
     const merged: DatabaseSchema = {
       ...DEFAULT_DB,
       ...parsed,
-      settings: parsed.settings ? { ...DEFAULT_DB.settings, ...parsed.settings } : DEFAULT_DB.settings
+      categoryPerformances: parsed.categoryPerformances || DEFAULT_DB.categoryPerformances,
+      settings: parsed.settings ? { ...DEFAULT_DB.settings, ...parsed.settings } : DEFAULT_DB.settings,
+      shops: parsed.shops || DEFAULT_DB.shops,
+      credits: parsed.credits || DEFAULT_DB.credits
     };
 
     return merged;

@@ -10,7 +10,9 @@ import {
   Printer,
   Calendar,
   CheckCircle,
-  FileDown
+  FileDown,
+  Database,
+  Download
 } from 'lucide-react';
 import { RestaurantSettings } from '../types';
 
@@ -94,6 +96,45 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
   // Download printable daily performance report PDF
   const handleDownloadDailyReport = () => {
     window.open(`/api/reports/daily/pdf?date=${reportDate}`);
+  };
+
+  const handleRestoreBackup = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!confirm('Are you absolutely sure you want to restore this database? Doing so will COMPLETELY OVERWRITE all current orders, employee profiles, salaries, credit records, and categories.')) {
+      e.target.value = ''; // reset
+      return;
+    }
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const parsed = JSON.parse(event.target?.result as string);
+          
+          const response = await fetch('/api/restore', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(parsed)
+          });
+          
+          const data = await response.json();
+          if (data.success) {
+            alert('Database Backup Restored Successfully! Synced system defaults for ' + (data.data?.restaurantName || 'The Royal Spice') + '.');
+            window.location.reload();
+          } else {
+            alert('Restore failed: ' + data.message);
+          }
+        } catch (err) {
+          alert('Failed to parse uploaded backup file. Make sure it is valid JSON.');
+        }
+      };
+      reader.readAsText(file);
+    } catch (err) {
+      console.error(err);
+      alert('File reading error occurred.');
+    }
   };
 
   if (loading) {
@@ -207,7 +248,7 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
 
         {/* Reports Download Column */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 flex flex-col justify-between h-full">
+          <div className="rounded-xl border border-[#E4E4E7] bg-white p-6 flex flex-col justify-between h-auto">
             <div>
               <h3 className="font-sans text-xs font-bold text-[#0f223a] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
                 <Printer className="h-4 w-4 text-[#71717A]" />
@@ -237,6 +278,41 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
               <FileDown className="h-4 w-4" />
               Serve Daily Performance PDF
             </button>
+          </div>
+
+          {/* Durable Database Backups Slot */}
+          <div className="rounded-xl border border-[#E4E4E7] bg-white p-6">
+            <h3 className="font-sans text-xs font-bold text-[#0f223a] border-b border-[#E4E4E7] pb-3 mb-4 flex items-center gap-2 uppercase tracking-wide">
+              <Database className="h-4 w-4 text-[#71717A]" />
+              Durable System Backups
+            </h3>
+            <p className="font-sans text-[11px] leading-relaxed text-[#71717A] mb-4">
+              Safeguard your restaurant configurations, chef payroll indices, debtor credit registers, and active salan inventory ledgers.
+            </p>
+
+            <div className="space-y-4">
+              {/* Download JSON Backup */}
+              <a 
+                href="/api/backup" 
+                download="restaurant-rms-backup.json"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] text-[#0f223a] font-sans text-xs font-bold py-2.5 shadow-2xs hover:shadow-xs transition-all text-center"
+              >
+                <Download className="h-4 w-4" />
+                Download Backup (JSON)
+              </a>
+
+              {/* Restore from JSON File input wrapper */}
+              <div className="border-t border-[#E4E4E7] pt-4">
+                <label className="block text-[10px] font-extrabold text-[#71717A] uppercase mb-1">Restore Database from JSON</label>
+                <input 
+                  type="file" 
+                  accept=".json"
+                  onChange={handleRestoreBackup}
+                  className="block w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"
+                />
+                <p className="mt-1.5 text-[9px] leading-relaxed text-[#A1A1AA]">WARNING: Uploading a JSON backup completely overrides current transactional registries.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

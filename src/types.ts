@@ -62,6 +62,7 @@ export interface ProductCategory {
   name: string;
   description?: string;
   isActive: boolean;
+  shopId?: string; // Associated Shop reference ID
 }
 
 export interface Product {
@@ -85,7 +86,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   orderNumber: string;
-  orderType: 'dine-in' | 'delivery' | 'takeaway';
+  orderType: 'dine-in' | 'delivery' | 'takeaway' | 'hand-to-hand' | 'on-table' | 'cash';
   tableNumber?: string;
   customerName?: string;
   customerPhone?: string;
@@ -95,6 +96,31 @@ export interface Order {
   discount: number;
   grandTotal: number;
   status: 'pending' | 'completed' | 'cancelled';
+  paymentStatus: 'paid' | 'credit';
+  paymentDueDate?: string; // YYYY-MM-DD
+  createdAt: string;
+}
+
+export interface Shop {
+  id: string;
+  name: string;
+  phone?: string;
+  description?: string;
+  address?: string;
+  createdAt: string;
+}
+
+export interface CreditRecord {
+  id: string;
+  orderId: string;
+  orderNumber: string;
+  customerName: string;
+  customerPhone?: string;
+  amount: number;
+  dueDate?: string;
+  status: 'pending' | 'settled';
+  settledAt?: string;
+  notes?: string;
   createdAt: string;
 }
 
@@ -129,4 +155,15 @@ export interface RestaurantSettings {
   address: string;
   invoiceFooterText: string;
   logoText: string;
+}
+
+export interface CategoryPerformance {
+  id: string;
+  categoryName: string;
+  date: string;
+  dailyExpenses: number;
+  dailyEarnings: number;
+  profitSharingRatio: number;
+  profitSharingNotes?: string;
+  createdAt: string;
 }

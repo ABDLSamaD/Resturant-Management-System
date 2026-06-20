@@ -11,7 +11,9 @@ import {
   Menu, 
   X,
   PlusSquare,
-  Sparkles
+  Sparkles,
+  Store,
+  CreditCard
 } from 'lucide-react';
 import { RestaurantSettings } from '../types';
 
@@ -29,6 +31,8 @@ export default function Sidebar({ currentTab, onTabChange, settings }: SidebarPr
     { id: 'orders', label: 'Order Entry', icon: ShoppingCart },
     { id: 'invoices', label: 'Invoices', icon: Receipt },
     { id: 'products', label: 'Menu Items', icon: Pizza },
+    { id: 'shops', label: 'Registered Shops', icon: Store },
+    { id: 'credits', label: 'Credit Registry', icon: CreditCard },
     { id: 'employees', label: 'Employees', icon: Users },
     { id: 'payroll', label: 'Payroll & Advances', icon: DollarSign },
     { id: 'expenses', label: 'Expenses (OCR)', icon: FolderMinus },

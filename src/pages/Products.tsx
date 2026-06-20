@@ -12,7 +12,7 @@ import {
   Image,
   Loader
 } from 'lucide-react';
-import { Product, ProductCategory } from '../types';
+import { Product, ProductCategory, Shop } from '../types';
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -45,6 +45,9 @@ export default function Products() {
   const [showCatForm, setShowCatForm] = useState(false);
   const [catName, setCatName] = useState('');
   const [catDesc, setCatDesc] = useState('');
+  const [catShopId, setCatShopId] = useState('');
+
+  const [shops, setShops] = useState<Shop[]>([]);
 
   const [statusMsg, setStatusMsg] = useState({ type: '', text: '' });
 
@@ -59,6 +62,11 @@ export default function Products() {
       const catRes = await fetch('/api/product-categories');
       const catData = await catRes.json();
       if (catData.success) setCategories(catData.data);
+
+      // Shops
+      const shopRes = await fetch('/api/shops');
+      const shopData = await shopRes.json();
+      if (shopData.success) setShops(shopData.data);
 
       const q = new URLSearchParams();
       if (search) q.append('search', search);
@@ -187,13 +195,14 @@ export default function Products() {
       const res = await fetch('/api/product-categories', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: catName, description: catDesc })
+        body: JSON.stringify({ name: catName, description: catDesc, shopId: catShopId })
       });
       const data = await res.json();
       if (data.success) {
         triggerToast('success', 'Dish category structured.');
         setCatName('');
         setCatDesc('');
+        setCatShopId('');
         setShowCatForm(false);
         loadData();
       } else {
@@ -270,16 +279,39 @@ export default function Products() {
                   className="mt-1 w-full rounded border border-[#E4E4E7] px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none bg-white text-[#18181B]"
                 />
               </div>
+              <div>
+                <label className="block text-[10px] font-extrabold text-[#71717A] uppercase">Assign Under Shop</label>
+                <select
+                  value={catShopId}
+                  onChange={e => setCatShopId(e.target.value)}
+                  className="mt-1 w-full rounded border border-[#E4E4E7] bg-white px-3 py-1.5 text-xs focus:ring-1 focus:ring-black focus:outline-none text-[#18181B]"
+                >
+                  <option value="">-- Let Owner Choose --No Shop linked</option>
+                  {shops.map(s => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+                </select>
+              </div>
               <button type="submit" className="w-full rounded bg-[#18181B] py-2 font-sans text-xs font-bold text-white hover:opacity-90">Save Category</button>
             </form>
 
-            <div className="mt-4 border-t border-[#E4E4E7] pt-4 max-h-36 overflow-y-auto space-y-1">
-              {categories.map(c => (
-                <div key={c.id} className="flex justify-between items-center text-xs text-[#18181B] bg-[#F4F4F5] border border-[#E4E4E7] rounded p-1.5 px-2.5">
-                  <span className="font-bold">{c.name}</span>
-                  {!c.isActive && <span className="text-[10px] text-[#A1A1AA]">Disabled</span>}
-                </div>
-              ))}
+            <div className="mt-4 border-t border-[#E4E4E7] pt-4 max-h-48 overflow-y-auto space-y-1">
+              {categories.map(c => {
+                const matchedShop = shops.find(s => s.id === c.shopId);
+                return (
+                  <div key={c.id} className="flex justify-between items-start text-xs text-[#18181B] bg-[#F4F4F5] border border-[#E4E4E7] rounded p-2 px-3">
+                    <div className="flex flex-col">
+                      <span className="font-bold text-[11px]">{c.name}</span>
+                      {matchedShop && (
+                        <span className="text-[9px] font-semibold text-[#71717A] tracking-tight truncate max-w-[170px] uppercase">
+                          Shop: {matchedShop.name}
+                        </span>
+                      )}
+                    </div>
+                    {!c.isActive && <span className="text-[9px] text-[#A1A1AA] uppercase font-bold shrink-0">Disabled</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -520,7 +552,18 @@ export default function Products() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="font-sans text-sm font-bold text-[#0f223a]">{p.name}</h3>
-                      <p className="font-sans text-[10px] text-[#71717A] font-bold tracking-tight uppercase">{p.category}</p>
+                      <div className="mt-0.5 flex flex-wrap gap-1 items-center">
+                        <span className="font-sans text-[9px] text-[#71717A] font-extrabold tracking-tight uppercase">{p.category}</span>
+                        {(() => {
+                          const catObj = categories.find(c => c.name === p.category);
+                          const shObj = catObj && shops.find(s => s.id === catObj.shopId);
+                          return shObj ? (
+                            <span className="rounded bg-sky-50 text-sky-700 px-1 py-0.2 font-sans text-[8px] font-extrabold uppercase border border-sky-100/65 shrink-0 max-w-[100px] truncate" title={shObj.name}>
+                              Shop: {shObj.name}
+                            </span>
+                          ) : null;
+                        })()}
+                      </div>
                     </div>
                     <span className="font-sans text-sm font-extrabold text-[#0f223a]">Rs. {p.price.toFixed(2)}</span>
                   </div>

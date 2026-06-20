@@ -8,6 +8,8 @@ import Orders from './pages/Orders';
 import Invoices from './pages/Invoices';
 import Expenses from './pages/Expenses';
 import Settings from './pages/Settings';
+import Shops from './pages/Shops';
+import Credits from './pages/Credits';
 import { RestaurantSettings } from './types';
 
 export default function App() {
@@ -49,6 +51,10 @@ export default function App() {
         return <Invoices settings={settings} />;
       case 'products':
         return <Products />;
+      case 'shops':
+        return <Shops />;
+      case 'credits':
+        return <Credits settings={settings} />;
       case 'employees':
         return <Employees />;
       case 'payroll':
