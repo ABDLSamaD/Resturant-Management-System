@@ -46,7 +46,7 @@ export default function App() {
       case 'dashboard':
         return <Dashboard onNavigate={handleNavigate} />;
       case 'orders':
-        return <Orders />;
+        return <Orders settings={settings} />;
       case 'invoices':
         return <Invoices settings={settings} />;
       case 'products':

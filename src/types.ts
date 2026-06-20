@@ -155,6 +155,7 @@ export interface RestaurantSettings {
   address: string;
   invoiceFooterText: string;
   logoText: string;
+  autoPrintOnInvoiceCreation?: boolean;
 }
 
 export interface CategoryPerformance {

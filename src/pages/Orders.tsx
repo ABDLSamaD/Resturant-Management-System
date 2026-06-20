@@ -15,9 +15,13 @@ import {
   Check,
   Printer
 } from 'lucide-react';
-import { Product, ProductCategory, Order } from '../types';
+import { Product, ProductCategory, Order, RestaurantSettings } from '../types';
 
-export default function Orders() {
+interface OrdersProps {
+  settings: RestaurantSettings | null;
+}
+
+export default function Orders({ settings }: OrdersProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<ProductCategory[]>([]);
   const [recentOrders, setRecentOrders] = useState<Order[]>([]);
@@ -186,6 +190,12 @@ export default function Orders() {
 
       if (data.success) {
         triggerToast('success', 'Order submitted successfully and invoice generated!');
+        
+        // Auto-print newly generated order invoice if configured in settings
+        if (settings?.autoPrintOnInvoiceCreation && data.data?.invoice?.id) {
+          window.open(`/api/invoices/${data.data.invoice.id}/print`, '_blank');
+        }
+
         // clear cart & entries
         setCart([]);
         setDiscount('0');

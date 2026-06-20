@@ -30,7 +30,8 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
     phone: '',
     address: '',
     invoiceFooterText: '',
-    logoText: ''
+    logoText: '',
+    autoPrintOnInvoiceCreation: false
   });
 
   const [saving, setSaving] = useState(false);
@@ -52,7 +53,8 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
             phone: data.data.phone || '',
             address: data.data.address || '',
             invoiceFooterText: data.data.invoiceFooterText || '',
-            logoText: data.data.logoText || ''
+            logoText: data.data.logoText || '',
+            autoPrintOnInvoiceCreation: !!data.data.autoPrintOnInvoiceCreation
           });
         }
       } catch (err) {
@@ -232,6 +234,24 @@ export default function Settings({ onSettingsSaved }: SettingsProps) {
                   rows={3}
                   placeholder="e.g. Thank you for choosing Shalimar Curry Point! We structure quality taste."
                 />
+              </div>
+
+              <div className="flex items-[#0f223a]/10 items-start gap-3 bg-slate-50 border border-slate-200 p-3.5 rounded-lg">
+                <input 
+                  type="checkbox" 
+                  id="autoPrintOnInvoiceCreation"
+                  checked={form.autoPrintOnInvoiceCreation}
+                  onChange={e => setForm({...form, autoPrintOnInvoiceCreation: e.target.checked})}
+                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-orange-600 focus:ring-orange-500 cursor-pointer"
+                />
+                <div className="flex-1">
+                  <label htmlFor="autoPrintOnInvoiceCreation" className="block text-xs font-bold text-[#0f223a] cursor-pointer select-none">
+                    Auto-Trigger POS Print Dialog on New Orders
+                  </label>
+                  <p className="text-[10px] text-slate-500 mt-0.5 leading-normal">
+                    Automatically open and prompt the compact 58mm/80mm thermal receipt printer slip dialog immediately after generating a successful order invoice.
+                  </p>
+                </div>
               </div>
 
               <button 

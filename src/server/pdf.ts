@@ -8,14 +8,12 @@ import { Invoice, Order, RestaurantSettings } from './db';
 export function generateInvoicePDF(invoice: Invoice, settings: RestaurantSettings): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     const chunks: Buffer[] = [];
-    // Page width is exactly 226 points (80mm). 
-    // We let the height grow based on items, say 500-600 initially, but we can make it auto-wrap.
     const itemCount = invoice.orderSnapshot.items?.length || 0;
-    const pageHeight = 220 + (itemCount * 25) + 120; // estimated vertical space needed
+    const pageHeight = 160 + (itemCount * 20) + 110; // estimated vertical space needed
 
     const doc = new PDFDocument({
-      size: [226, pageHeight],
-      margins: { top: 15, bottom: 15, left: 10, right: 10 }
+      size: [164, pageHeight],
+      margins: { top: 12, bottom: 12, left: 5, right: 5 }
     });
 
     doc.on('data', chunk => chunks.push(chunk));
@@ -23,82 +21,80 @@ export function generateInvoicePDF(invoice: Invoice, settings: RestaurantSetting
     doc.on('error', err => reject(err));
 
     // Logo & Header
-    doc.font('Helvetica-Bold').fontSize(16).fillColor('#1f2937').text(settings.restaurantName, { align: 'center' });
-    doc.font('Helvetica').fontSize(8).fillColor('#4b5563')
-       .text(settings.address, { align: 'center' })
-       .text(`Tel: ${settings.phone}`, { align: 'center' });
+    doc.font('Helvetica-Bold').fontSize(12).fillColor('#1f2937').text(settings.restaurantName, { align: 'center' });
+    doc.font('Helvetica').fontSize(7).fillColor('#4b5563')
+       .text(settings.address || '', { align: 'center' })
+       .text(`Tel: ${settings.phone || ''}`, { align: 'center' });
 
-    doc.moveDown(0.5);
-    doc.strokeColor('#d1d5db').lineWidth(0.5).moveTo(10, doc.y).lineTo(216, doc.y).stroke();
-    doc.moveDown(0.5);
+    doc.moveDown(0.4);
+    doc.strokeColor('#cbd5e1').lineWidth(0.5).moveTo(5, doc.y).lineTo(159, doc.y).stroke();
+    doc.moveDown(0.4);
 
     // Invoice Meta info
-    doc.fontSize(8).fillColor('#1f2937')
-       .text(`Receipt #: ${invoice.invoiceNumber}`)
+    doc.fontSize(7).fillColor('#1f2937')
+       .text(`Receipt: ${invoice.invoiceNumber}`)
        .text(`Type: ${invoice.orderSnapshot.orderType.toUpperCase()}`);
     
     if (invoice.orderSnapshot.orderType === 'dine-in' && invoice.orderSnapshot.tableNumber) {
       doc.text(`Table: ${invoice.orderSnapshot.tableNumber}`);
-    } else if (invoice.orderSnapshot.orderType === 'delivery') {
-      doc.text(`Name: ${invoice.orderSnapshot.customerName || 'N/A'}`)
-         .text(`Phone: ${invoice.orderSnapshot.customerPhone || 'N/A'}`)
-         .text(`Address: ${invoice.orderSnapshot.customerAddress || 'N/A'}`, { width: 206 });
+    } else if (invoice.orderSnapshot.customerName && invoice.orderSnapshot.customerName.trim() !== '') {
+      doc.text(`Guest: ${invoice.orderSnapshot.customerName}`);
     }
 
     const dateStr = new Date(invoice.generatedAt).toLocaleString();
-    doc.text(`Date/Time: ${dateStr}`);
+    doc.text(`Date: ${dateStr}`);
 
-    doc.moveDown(0.5);
-    doc.strokeColor('#d1d5db').lineWidth(0.5).moveTo(10, doc.y).lineTo(216, doc.y).stroke();
-    doc.moveDown(0.5);
+    doc.moveDown(0.4);
+    doc.strokeColor('#cbd5e1').lineWidth(0.5).moveTo(5, doc.y).lineTo(159, doc.y).stroke();
+    doc.moveDown(0.4);
 
     // Items table header
-    doc.font('Helvetica-Bold').fontSize(7)
-       .text('Item', 10, doc.y, { width: 100, continued: true })
-       .text('Qty', { width: 30, align: 'center', continued: true })
-       .text('Price', { width: 36, align: 'right', continued: true })
-       .text('Total', { width: 40, align: 'right' });
+    doc.font('Helvetica-Bold').fontSize(6.5)
+       .text('Item', 5, doc.y, { width: 70, continued: true })
+       .text('Qty', { width: 22, align: 'center', continued: true })
+       .text('Price', { width: 28, align: 'right', continued: true })
+       .text('Total', { width: 34, align: 'right' });
 
     doc.moveDown(0.2);
-    doc.strokeColor('#e5e7eb').lineWidth(0.5).moveTo(10, doc.y).lineTo(216, doc.y).stroke();
+    doc.strokeColor('#e5e7eb').lineWidth(0.5).moveTo(5, doc.y).lineTo(159, doc.y).stroke();
     doc.moveDown(0.3);
 
     // Items list
-    doc.font('Helvetica').fontSize(7).fillColor('#374151');
+    doc.font('Helvetica').fontSize(6.5).fillColor('#374151');
     invoice.orderSnapshot.items.forEach(item => {
       const startY = doc.y;
-      doc.text(item.productName, 10, startY, { width: 100, lineBreak: true });
+      doc.text(item.productName, 5, startY, { width: 70, lineBreak: true });
       const nextY = doc.y;
-      doc.text(String(item.quantity), 110, startY, { width: 30, align: 'center' });
-      doc.text(item.price.toFixed(2), 140, startY, { width: 36, align: 'right' });
-      doc.text(item.lineTotal.toFixed(2), 176, startY, { width: 40, align: 'right' });
-      doc.y = Math.max(nextY, startY + 12); // advance cursor correctly
+      doc.text(String(item.quantity), 75, startY, { width: 22, align: 'center' });
+      doc.text(item.price.toFixed(2), 97, startY, { width: 28, align: 'right' });
+      doc.text(item.lineTotal.toFixed(2), 125, startY, { width: 34, align: 'right' });
+      doc.y = Math.max(nextY, startY + 11); // advance cursor correctly
     });
 
-    doc.moveDown(0.5);
-    doc.strokeColor('#d1d5db').lineWidth(0.5).moveTo(10, doc.y).lineTo(216, doc.y).stroke();
-    doc.moveDown(0.5);
+    doc.moveDown(0.4);
+    doc.strokeColor('#cbd5e1').lineWidth(0.5).moveTo(5, doc.y).lineTo(159, doc.y).stroke();
+    doc.moveDown(0.4);
 
     // Totals calculations
-    const totalsX = 100;
-    doc.font('Helvetica').fontSize(8).fillColor('#1f2937');
-    doc.text('Subtotal:', totalsX, doc.y, { width: 60, continued: true })
-       .text(`Rs. ${invoice.orderSnapshot.subtotal.toFixed(2)}`, { align: 'right', width: 56 });
+    const totalsX = 70;
+    doc.font('Helvetica').fontSize(7).fillColor('#1f2937');
+    doc.text('Subtotal:', totalsX, doc.y, { width: 45, continued: true })
+       .text(`Rs.${invoice.orderSnapshot.subtotal.toFixed(2)}`, { align: 'right', width: 44 });
     
     if (invoice.orderSnapshot.discount > 0) {
-      doc.text('Discount:', totalsX, doc.y, { width: 60, continued: true })
-         .text(`-Rs. ${invoice.orderSnapshot.discount.toFixed(2)}`, { align: 'right', width: 56 });
+      doc.text('Discount:', totalsX, doc.y, { width: 45, continued: true })
+         .text(`-Rs.${invoice.orderSnapshot.discount.toFixed(2)}`, { align: 'right', width: 44 });
     }
 
     doc.moveDown(0.2);
-    doc.font('Helvetica-Bold').fontSize(9)
-       .text('Grand Total:', totalsX, doc.y, { width: 60, continued: true })
-       .text(`Rs. ${invoice.orderSnapshot.grandTotal.toFixed(2)}`, { align: 'right', width: 56 });
+    doc.font('Helvetica-Bold').fontSize(7.5)
+       .text('TOTAL:', totalsX, doc.y, { width: 45, continued: true })
+       .text(`Rs.${invoice.totalAmount.toFixed(2)}`, { align: 'right', width: 44 });
 
     // Footer Text
-    doc.moveDown(1.5);
-    doc.font('Helvetica-Oblique').fontSize(7).fillColor('#6b7280')
-       .text(settings.invoiceFooterText || 'Thank you for your business!', { align: 'center', width: 206 });
+    doc.moveDown(1.2);
+    doc.font('Helvetica-Oblique').fontSize(6).fillColor('#6b7280')
+       .text(settings.invoiceFooterText || 'Thank you for your business!', { align: 'center', width: 154 });
 
     doc.end();
   });

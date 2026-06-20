@@ -183,6 +183,7 @@ export interface RestaurantSettings {
   invoiceFooterText: string;
   logoText: string;
   logoUrl?: string;
+  autoPrintOnInvoiceCreation?: boolean;
 }
 
 export interface DatabaseSchema {
@@ -418,7 +419,8 @@ const DEFAULT_DB: DatabaseSchema = {
     phone: '+1 (555) 123-4567',
     address: '123 Gourmet Blvd, Food District, Capital City',
     invoiceFooterText: 'Thank you for dining with us! Come back soon.',
-    logoText: 'R'
+    logoText: 'R',
+    autoPrintOnInvoiceCreation: false
   },
   shops: [
     { id: 'shop-1', name: 'Royal Tandoor & Curries', phone: '555-1200', description: 'Fresh nan, chapati, dal, and traditional curries', address: 'Counter 1, Food District', createdAt: '2026-05-15T00:00:00.000Z' },

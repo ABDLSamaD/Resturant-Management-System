@@ -56,6 +56,11 @@ export default function Invoices({ settings }: InvoicesProps) {
     window.open(`/api/invoices/${invoice.id}/professional`);
   };
 
+  // Action hook to open the small interactive printable POS slip on a new page (tab)
+  const handleOpenPrintPage = (invoice: Invoice) => {
+    window.open(`/api/invoices/${invoice.id}/print`, '_blank');
+  };
+
   return (
     <div className="space-y-6 p-6 md:p-8 grid gap-8 lg:grid-cols-3 align-start">
       {/* List section */}
@@ -88,36 +93,45 @@ export default function Invoices({ settings }: InvoicesProps) {
               <table className="w-full border-collapse text-left text-xs text-slate-500">
                 <thead className="bg-slate-50 font-sans font-bold text-slate-700 border-b border-slate-100">
                   <tr>
-                    <th className="px-6 py-3">Archived Invoice</th>
-                    <th className="px-6 py-3">Checkout Date</th>
-                    <th className="px-6 py-3">Order Type</th>
-                    <th className="px-6 py-3">Check Total</th>
-                    <th className="px-6 py-3 text-right">Reprint</th>
+                    <th className="px-4 py-3">Archived Invoice</th>
+                    <th className="px-4 py-3 hidden md:table-cell">Checkout Date</th>
+                    <th className="px-4 py-3">Order Type</th>
+                    <th className="px-4 py-3">Check Total</th>
+                    <th className="px-4 py-3 text-right">Reprint</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-150 font-sans">
                   {invoices.map((inv) => (
                     <tr key={inv.id} className="hover:bg-slate-50/50">
-                      <td className="px-6 py-4">
-                        <div className="font-bold text-slate-905 text-slate-900">{inv.invoiceNumber}</div>
-                        <div className="text-[10px] text-slate-400 mt-0.5">Order snapshot ref: {inv.orderSnapshot?.orderNumber || 'Legacy'}</div>
+                      <td className="px-4 py-4">
+                        <div className="font-bold text-slate-900">{inv.invoiceNumber}</div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">Snapshot Ref: {inv.orderSnapshot?.orderNumber || 'Legacy'}</div>
                       </td>
-                      <td className="px-6 py-4 text-slate-650 font-medium">{new Date(inv.generatedAt).toLocaleString('en-US')}</td>
-                      <td className="px-6 py-4 uppercase">
-                        <span className="inline-flex rounded bg-slate-100 px-2.5 py-0.5 text-[9px] font-extrabold text-slate-600">
+                      <td className="px-4 py-4 text-slate-650 font-medium hidden md:table-cell">
+                        {new Date(inv.generatedAt).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' })}
+                      </td>
+                      <td className="px-4 py-4 uppercase">
+                        <span className="inline-flex rounded bg-slate-100 px-2 py-0.5 text-[9px] font-extrabold text-slate-600">
                           {inv.orderSnapshot?.orderType || 'Dine-In'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 font-extrabold text-slate-800">Rs. {inv.totalAmount.toFixed(2)}</td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-4 py-4 font-extrabold text-slate-800">Rs. {inv.totalAmount.toFixed(2)}</td>
+                      <td className="px-4 py-4 text-right">
                         <div className="flex justify-end gap-1">
                           <button 
                             id={`btn-view-inv-${inv.id}`}
                             onClick={() => setActiveInvoice(inv)}
-                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-slate-950"
-                            title="Draft Print Check"
+                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-950 hover:bg-slate-50"
+                            title="View Slip Draft"
                           >
                             <Eye className="h-3.5 w-3.5" />
+                          </button>
+                          <button 
+                            onClick={() => handleOpenPrintPage(inv)}
+                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-orange-600 hover:bg-slate-50"
+                            title="Print Small Slip (New Tab)"
+                          >
+                            <Printer className="h-3.5 w-3.5" />
                           </button>
                           <button 
                             onClick={() => handleDownloadPdf(inv)}
@@ -125,13 +139,6 @@ export default function Invoices({ settings }: InvoicesProps) {
                             title="Download Thermal PDF"
                           >
                             <Download className="h-3.5 w-3.5" />
-                          </button>
-                          <button 
-                            onClick={() => handleDownloadProfessionalPdf(inv)}
-                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-indigo-650 hover:text-indigo-650"
-                            title="Download Professional PK Invoice (A4)"
-                          >
-                            <Sparkles className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       </td>
@@ -151,16 +158,25 @@ export default function Invoices({ settings }: InvoicesProps) {
         )}
       </div>
 
-      {/* Right Column (A real interactive printed Thermal Receipt check generator previewer) */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm space-y-4 min-h-[70vh] flex flex-col justify-between">
-        {activeInvoice ? (
-          <div className="space-y-4 flex flex-col justify-between h-full">
-            <div>
-              {/* Header */}
-              <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                <span className="font-sans text-[11px] font-extrabold tracking-widest text-indigo-600">THERMAL ROLL PRINT</span>
-                <button onClick={() => setActiveInvoice(null)} className="rounded p-1 hover:bg-slate-100"><X className="h-4 w-4" /></button>
-              </div>
+      {/* Right Column / Centered Modal Overlay on mobile, side-by-side on desktop */}
+      <div 
+        onClick={() => setActiveInvoice(null)}
+        className={`${activeInvoice ? 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm lg:p-0 lg:bg-transparent lg:shadow-none lg:z-0 lg:relative lg:flex lg:col-span-1' : 'hidden lg:flex lg:col-span-1'} flex-col`}
+      >
+        <div 
+          onClick={(e) => e.stopPropagation()}
+          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl lg:shadow-sm space-y-4 max-h-[90vh] overflow-y-auto lg:max-h-none lg:min-h-[70vh] flex flex-col justify-between w-full max-w-sm lg:max-w-none"
+        >
+          {activeInvoice ? (
+            <div className="space-y-4 flex flex-col justify-between h-full">
+              <div>
+                {/* Header */}
+                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                  <span className="font-sans text-[11px] font-extrabold tracking-widest text-[#ea580c]">Interactive POS Receipt</span>
+                  <button onClick={() => setActiveInvoice(null)} className="rounded-lg p-1 hover:bg-slate-100 text-slate-400 hover:text-slate-900 border border-transparent hover:border-slate-200" title="Close Preview">
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
 
               {/* Thermal container mimicking a physical paper role */}
               <div id="virtual-receipt-preview" className="rounded-lg border border-slate-350 border-slate-300 bg-amber-50/20 font-mono text-xs text-slate-800 p-4 shadow-inner space-y-3 relative overflow-hidden select-text">
@@ -239,30 +255,37 @@ export default function Invoices({ settings }: InvoicesProps) {
             {/* Print action buttons */}
             <div className="pt-4 border-t border-slate-100 space-y-2">
               <button 
-                id="btn-thermal-reprint"
-                onClick={() => handleDownloadPdf(activeInvoice)}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-900 hover:bg-slate-850 text-white font-sans text-xs font-bold py-2"
+                id="btn-direct-pos-print"
+                onClick={() => handleOpenPrintPage(activeInvoice)}
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white font-sans text-xs font-bold py-2.5 transition shadow"
               >
                 <Printer className="h-4 w-4" />
-                Dispatch Thermal PDF Print
+                Reprint Compact Slip (Separate Page)
               </button>
 
               <button 
-                id="btn-browser-quick-print"
-                onClick={() => window.print()}
+                id="btn-thermal-reprint"
+                onClick={() => handleDownloadPdf(activeInvoice)}
                 className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 font-sans text-xs font-bold py-2 shadow-sm transition"
               >
-                <Printer className="h-4 w-4" />
-                Browser Print (Direct Thermal Copy)
+                <Download className="h-4 w-4" />
+                Download 58mm POS PDF
               </button>
               
               <button 
                 id="btn-professional-print"
                 onClick={() => handleDownloadProfessionalPdf(activeInvoice)}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-950 bg-white hover:bg-slate-50 text-slate-950 font-sans text-xs font-bold py-2 shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-indigo-200 bg-indigo-50/50 hover:bg-indigo-50 text-indigo-700 font-sans text-xs font-bold py-2 transition"
               >
-                <Download className="h-4 w-4" />
-                Download Professional Invoice (A4)
+                <Sparkles className="h-4 w-4" />
+                Download Professional A4 PDF
+              </button>
+
+              <button 
+                onClick={() => setActiveInvoice(null)}
+                className="w-full lg:hidden inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-500 font-sans text-xs py-2 shadow-sm"
+              >
+                Close Preview
               </button>
             </div>
           </div>
@@ -273,6 +296,7 @@ export default function Invoices({ settings }: InvoicesProps) {
             <p className="font-sans text-[10px] text-slate-400 mt-1">Pick a listed check to draft print previews instantly.</p>
           </div>
         )}
+        </div>
       </div>
 
       {/* Hidden print-only thermal invoice ticket for physical printer matching */}
